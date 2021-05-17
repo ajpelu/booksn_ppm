@@ -7,7 +7,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-La idea es seleccionar un conjunto de parcelas en torno a Sierra Nevada de la forma menos subjetiva posible. Para ello 
+La idea es seleccionar un conjunto de parcelas en torno a Sierra Nevada de la forma menos subjetiva posible. 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
