@@ -1,7 +1,7 @@
-name: "booksn_ppm"
+name: booksn_ppm
 output_dir: ../docs
 navbar:
-  title: "booksn_ppm"
+  title: booksn_ppm
   left:
   - text: Home
     href: index.html
@@ -9,6 +9,10 @@ navbar:
     href: about.html
   - text: License
     href: license.html
+  right:
+  - icon: fa-github
+    text: Source code
+    href: https://github.com/ajpelu/booksn_ppm
 output:
   workflowr::wflow_html:
     toc: yes
