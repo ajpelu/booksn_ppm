@@ -9,5 +9,6 @@ editor_options:
 ---
 
 ## Preparación de datos 
-- En este [script](analysis/preparaDatos.html) partimos de los datos originales de COPLAS desde 1992-2019 y generamos un data.frame "limpio" (corrección de errores), con la elevación y la especie de pino. Este dataset se guarda en `/data/coplas2019.csv`
+- En este [script](analysis/preparaDatos.html) partimos de los datos originales de COPLAS desde 1992-2019 y generamos un data.frame "limpio" (corrección de errores), con la elevación y la especie de pino. Este dataset se guarda en `/data/coplas2019.csv`.
 
+- Para el análisis de los datos de Sierra Nevada, vamos a generar un buffer de diferentes distancias para ver que parcelas elegimos. El proceso puede verse [aquí](analysis/bufferSN.html). Hemos cogido un buffer de 20 km y hemos añadido algunas parcelas (de Motril), y hemos eliminado algunas de Sierra Alhamilla. Los datos están en: `/data/coplas2019sn.csv`.
