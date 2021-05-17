@@ -8,4 +8,6 @@ editor_options:
   chunk_output_type: console
 ---
 
-Welcome to my research website.
+## Preparación de datos 
+- En este [script](analysis/preparaDatos.html) partimos de los datos originales de COPLAS desde 1992-2019 y generamos un data.frame "limpio" (corrección de errores), con la elevación y la especie de pino. Este dataset se guarda en `/data/coplas2019.csv`
+
