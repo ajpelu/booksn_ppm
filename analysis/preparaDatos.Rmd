@@ -253,7 +253,24 @@ coplas_sp <- coplas %>% inner_join(parcela_sp) %>%
   inner_join(parcelas) %>% 
   dplyr::relocate(code, prov, area_ha, sp, elev_mean, elev_min, elev_max, elevF, perim, lat, long, `1993`:`2015`, `2016`, `2017`, `2018`, `2019`)
 
+coplas_sp <- coplas_sp %>% 
+  mutate(sp_abrev = recode(sp,"PINUS HALEPENSIS" = "phale",
+                     "PINUS SYLVESTRIS" = "psylv",
+                     "PINUS NIGRA SSP AUSTR." = "pnig_aus",
+                     "PINUS NIGRA SSP SALZM." = "pnig_sal",
+                     "PINUS PINASTER" = "ppinas",
+                     "PINUS PINEA" = "ppinea",
+                     "PINUS UNCINATA" = "punci",
+                     "PINUS CANARIENSIS" = "pcana"),
+         especie = case_when(
+  sp_abrev %in% c("pnig_aus", "pnig_sal") ~ "P. nigra",
+  sp_abrev == "phale" ~ "P. halpensis",
+  sp_abrev == "psylv" ~ "P. sylvestris",
+  sp_abrev == "ppinas" ~ "P. pinaster")) 
+
+
 write_csv(coplas_sp, here::here("data/coplas2019.csv"))
+
 ```
 
 ```{r}
