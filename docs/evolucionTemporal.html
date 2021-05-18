@@ -474,16 +474,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomajpelubooksnppmtree7ffc8f1c660a388874afec9cc2c43a6f754638actargetblank7ffc8f1a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/ajpelu/booksn_ppm/tree/7ffc8f1c660a388874afec9cc2c43a6f754638ac" target="_blank">7ffc8f1</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomajpelubooksnppmtree1bc6f84d2fba49167a523f063928719e90990247targetblank1bc6f84a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/ajpelu/booksn_ppm/tree/1bc6f84d2fba49167a523f063928719e90990247" target="_blank">1bc6f84</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomajpelubooksnppmtree7ffc8f1c660a388874afec9cc2c43a6f754638actargetblank7ffc8f1a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomajpelubooksnppmtree1bc6f84d2fba49167a523f063928719e90990247targetblank1bc6f84a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/ajpelu/booksn_ppm/tree/7ffc8f1c660a388874afec9cc2c43a6f754638ac" target="_blank">7ffc8f1</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/ajpelu/booksn_ppm/tree/1bc6f84d2fba49167a523f063928719e90990247" target="_blank">1bc6f84</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -496,10 +496,16 @@ Ignored files:
     Ignored:    data/data_raw/
 
 Untracked files:
+    Untracked:  analysis/computeMannKendall.Rmd
     Untracked:  analysis/dataNAO.Rmd
-    Untracked:  output/evolucion_temporal_elevacion.pdf
-    Untracked:  output/evolucion_temporal_especies.pdf
-    Untracked:  output/evolucion_temporal_reg2005.pdf
+
+Unstaged changes:
+    Modified:   analysis/index.Rmd
+    Modified:   data/coplas2019.csv
+    Modified:   data/coplas2019sn.csv
+    Modified:   output/evolucion_temporal_elevacion.pdf
+    Modified:   output/evolucion_temporal_especies.pdf
+    Modified:   output/evolucion_temporal_reg2005.pdf
 
 </code></pre>
 <p>
@@ -543,6 +549,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/ajpelu/booksn_ppm/blob/1bc6f84d2fba49167a523f063928719e90990247/analysis/evolucionTemporal.Rmd" target="_blank">1bc6f84</a>
+</td>
+<td>
+Antonio J Perez-Luque
+</td>
+<td>
+2021-05-18
+</td>
+<td>
+genera temporal evolution using new sp data
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/ajpelu/booksn_ppm/2a68381af81c6957d0d3856368a0218ccaeb03b2/docs/evolucionTemporal.html" target="_blank">2a68381</a>
+</td>
+<td>
+Antonio J Perez-Luque
+</td>
+<td>
+2021-05-18
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/ajpelu/booksn_ppm/blob/7ffc8f1c660a388874afec9cc2c43a6f754638ac/analysis/evolucionTemporal.Rmd" target="_blank">7ffc8f1</a>
 </td>
 <td>
@@ -569,22 +609,7 @@ library(&quot;here&quot;)
 library(&quot;flextable&quot;)
 library(&quot;DT&quot;)
 library(&quot;broom&quot;)</code></pre>
-<pre class="r"><code>coplas2019 &lt;- read_csv(here::here(&quot;data/coplas2019sn.csv&quot;))
-
-coplas2019 &lt;- coplas2019 %&gt;% 
-  mutate(sp_abrev = recode(sp,&quot;PINUS HALEPENSIS&quot; = &quot;phale&quot;,
-                     &quot;PINUS SYLVESTRIS&quot; = &quot;psylv&quot;,
-                     &quot;PINUS NIGRA SSP AUSTR.&quot; = &quot;pnig_aus&quot;,
-                     &quot;PINUS NIGRA SSP SALZM.&quot; = &quot;pnig_sal&quot;,
-                     &quot;PINUS PINASTER&quot; = &quot;ppinas&quot;,
-                     &quot;PINUS PINEA&quot; = &quot;ppinea&quot;,
-                     &quot;PINUS UNCINATA&quot; = &quot;punci&quot;,
-                     &quot;PINUS CANARIENSIS&quot; = &quot;pcana&quot;),
-         especie = case_when(
-  sp_abrev %in% c(&quot;pnig_aus&quot;, &quot;pnig_sal&quot;) ~ &quot;P. nigra&quot;,
-  sp_abrev == &quot;phale&quot; ~ &quot;P. halpensis&quot;,
-  sp_abrev == &quot;psylv&quot; ~ &quot;P. sylvestris&quot;,
-  sp_abrev == &quot;ppinas&quot; ~ &quot;P. pinaster&quot;)) </code></pre>
+<pre class="r"><code>coplas2019 &lt;- read_csv(here::here(&quot;data/coplas2019sn.csv&quot;))</code></pre>
 <ul>
 <li>Exploramos la evolución temporal de la infestación (solo los datos de Sierra Nevada) agrupando por especies de pino y por nivel de elevación. Calculamos los valores medios por nivel de elevación y año.</li>
 </ul>
@@ -638,6 +663,43 @@ df.avg %&gt;%
   geom_errorbar(aes(ymin=mean - se, ymax=mean + se), width = .1) +
   guides(colour = guide_legend(nrow = 2))</code></pre>
 <p><img src="figure/evolucionTemporal.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/ajpelu/booksn_ppm/blob/2a68381af81c6957d0d3856368a0218ccaeb03b2/docs/figure/evolucionTemporal.Rmd/unnamed-chunk-4-1.png" target="_blank">2a68381</a>
+</td>
+<td>
+Antonio J Perez-Luque
+</td>
+<td>
+2021-05-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>null device 
           1 </code></pre>
 </div>
@@ -688,6 +750,43 @@ evol_temporal_especies &lt;-
   geom_errorbar(aes(ymin=mean - se, ymax=mean + se), width = .1) +
   guides(colour = guide_legend(nrow = 2))</code></pre>
 <p><img src="figure/evolucionTemporal.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/ajpelu/booksn_ppm/blob/2a68381af81c6957d0d3856368a0218ccaeb03b2/docs/figure/evolucionTemporal.Rmd/unnamed-chunk-7-1.png" target="_blank">2a68381</a>
+</td>
+<td>
+Antonio J Perez-Luque
+</td>
+<td>
+2021-05-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>null device 
           1 </code></pre>
 <div id="tendencia-últimos-años" class="section level3">
@@ -696,6 +795,43 @@ evol_temporal_especies &lt;-
 <li>Explorar la tendendia desde 2005 (solo fines exploratorios). Sabemos que este modelo estadísticamte es inválido.</li>
 </ul>
 <p><img src="figure/evolucionTemporal.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/ajpelu/booksn_ppm/blob/2a68381af81c6957d0d3856368a0218ccaeb03b2/docs/figure/evolucionTemporal.Rmd/unnamed-chunk-8-1.png" target="_blank">2a68381</a>
+</td>
+<td>
+Antonio J Perez-Luque
+</td>
+<td>
+2021-05-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>null device 
           1 </code></pre>
 <pre class="r"><code>ft1 &lt;- do(df2005 %&gt;% group_by(especie), 
@@ -704,7 +840,7 @@ evol_temporal_especies &lt;-
   mutate_if(is.numeric, round, 4) %&gt;% 
   flextable() 
 ft1 </code></pre>
-<template id="12d6da94-6c4c-430f-817c-95828aad3812"><style>
+<template id="95ebe3cf-8bb6-42f5-af63-d8c4ade205bd"><style>
 .tabwid table{
   border-collapse:collapse;
   line-height:1;
@@ -738,11 +874,11 @@ ft1 </code></pre>
 .tabwid table tr {
 background-color: transparent;
 }
-</style><div class="tabwid"><style>.cl-2aac829c{border-collapse:collapse;}.cl-2aa5f9a4{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-2aa61e02{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-2aa61e2a{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-2aa658a4{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2aa658cc{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2aa658cd{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2aa658d6{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2aa658e0{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2aa658ea{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}caption {color: #777;margin-top: 10px;margin-bottom: 10px;text-align: center;}</style><table class='cl-2aac829c'><thead><tr style="overflow-wrap:break-word;"><td class="cl-2aa658e0"><p class="cl-2aa61e02"><span class="cl-2aa5f9a4">especie</span></p></td><td class="cl-2aa658ea"><p class="cl-2aa61e2a"><span class="cl-2aa5f9a4">r.squared</span></p></td><td class="cl-2aa658ea"><p class="cl-2aa61e2a"><span class="cl-2aa5f9a4">p.value</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-2aa658cc"><p class="cl-2aa61e02"><span class="cl-2aa5f9a4">P. halpensis</span></p></td><td class="cl-2aa658a4"><p class="cl-2aa61e2a"><span class="cl-2aa5f9a4">0.3344</span></p></td><td class="cl-2aa658a4"><p class="cl-2aa61e2a"><span class="cl-2aa5f9a4">0.0303</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2aa658cc"><p class="cl-2aa61e02"><span class="cl-2aa5f9a4">P. nigra</span></p></td><td class="cl-2aa658a4"><p class="cl-2aa61e2a"><span class="cl-2aa5f9a4">0.4238</span></p></td><td class="cl-2aa658a4"><p class="cl-2aa61e2a"><span class="cl-2aa5f9a4">0.0117</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2aa658cc"><p class="cl-2aa61e02"><span class="cl-2aa5f9a4">P. pinaster</span></p></td><td class="cl-2aa658a4"><p class="cl-2aa61e2a"><span class="cl-2aa5f9a4">0.2282</span></p></td><td class="cl-2aa658a4"><p class="cl-2aa61e2a"><span class="cl-2aa5f9a4">0.0841</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2aa658cd"><p class="cl-2aa61e02"><span class="cl-2aa5f9a4">P. sylvestris</span></p></td><td class="cl-2aa658d6"><p class="cl-2aa61e2a"><span class="cl-2aa5f9a4">0.4282</span></p></td><td class="cl-2aa658d6"><p class="cl-2aa61e2a"><span class="cl-2aa5f9a4">0.0111</span></p></td></tr></tbody></table></div></template>
-<div id="8214219d-767a-45eb-88b2-282e0eda9a33"></div>
+</style><div class="tabwid"><style>.cl-caed8170{border-collapse:collapse;}.cl-cae67164{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-cae68ea6{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-cae68eba{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-cae6c182{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cae6c196{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cae6c1a0{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cae6c1aa{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cae6c1b4{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cae6c1be{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}caption {color: #777;margin-top: 10px;margin-bottom: 10px;text-align: center;}</style><table class='cl-caed8170'><thead><tr style="overflow-wrap:break-word;"><td class="cl-cae6c1b4"><p class="cl-cae68ea6"><span class="cl-cae67164">especie</span></p></td><td class="cl-cae6c1be"><p class="cl-cae68eba"><span class="cl-cae67164">r.squared</span></p></td><td class="cl-cae6c1be"><p class="cl-cae68eba"><span class="cl-cae67164">p.value</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-cae6c196"><p class="cl-cae68ea6"><span class="cl-cae67164">P. halpensis</span></p></td><td class="cl-cae6c182"><p class="cl-cae68eba"><span class="cl-cae67164">0.3344</span></p></td><td class="cl-cae6c182"><p class="cl-cae68eba"><span class="cl-cae67164">0.0303</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cae6c196"><p class="cl-cae68ea6"><span class="cl-cae67164">P. nigra</span></p></td><td class="cl-cae6c182"><p class="cl-cae68eba"><span class="cl-cae67164">0.4238</span></p></td><td class="cl-cae6c182"><p class="cl-cae68eba"><span class="cl-cae67164">0.0117</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cae6c196"><p class="cl-cae68ea6"><span class="cl-cae67164">P. pinaster</span></p></td><td class="cl-cae6c182"><p class="cl-cae68eba"><span class="cl-cae67164">0.2282</span></p></td><td class="cl-cae6c182"><p class="cl-cae68eba"><span class="cl-cae67164">0.0841</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cae6c1a0"><p class="cl-cae68ea6"><span class="cl-cae67164">P. sylvestris</span></p></td><td class="cl-cae6c1aa"><p class="cl-cae68eba"><span class="cl-cae67164">0.4282</span></p></td><td class="cl-cae6c1aa"><p class="cl-cae68eba"><span class="cl-cae67164">0.0111</span></p></td></tr></tbody></table></div></template>
+<div id="400da42c-8136-4778-b25f-92574afc277a"></div>
 <script>
-var dest = document.getElementById("8214219d-767a-45eb-88b2-282e0eda9a33");
-var template = document.getElementById("12d6da94-6c4c-430f-817c-95828aad3812");
+var dest = document.getElementById("400da42c-8136-4778-b25f-92574afc277a");
+var template = document.getElementById("95ebe3cf-8bb6-42f5-af63-d8c4ade205bd");
 var caption = template.content.querySelector("caption");
 if(caption) {
   caption.style.cssText = "display:block;text-align:center;";
@@ -760,7 +896,7 @@ fantome.appendChild(templateContent);
   mutate_if(is.numeric, round, 3) %&gt;% 
   flextable() 
 ft2</code></pre>
-<template id="b4b7aea5-1771-4a91-a68b-ddd5ecbf72bf"><style>
+<template id="ae10965d-25fd-4fd6-8911-6622583ab1d5"><style>
 .tabwid table{
   border-collapse:collapse;
   line-height:1;
@@ -794,11 +930,11 @@ ft2</code></pre>
 .tabwid table tr {
 background-color: transparent;
 }
-</style><div class="tabwid"><style>.cl-2acf2298{border-collapse:collapse;}.cl-2ac91790{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-2ac924ec{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-2ac9250a{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-2ac95dea{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2ac95e08{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2ac95e12{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2ac95e1c{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2ac95e26{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2ac95e30{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}caption {color: #777;margin-top: 10px;margin-bottom: 10px;text-align: center;}</style><table class='cl-2acf2298'><thead><tr style="overflow-wrap:break-word;"><td class="cl-2ac95e26"><p class="cl-2ac924ec"><span class="cl-2ac91790">especie</span></p></td><td class="cl-2ac95e26"><p class="cl-2ac924ec"><span class="cl-2ac91790">term</span></p></td><td class="cl-2ac95e30"><p class="cl-2ac9250a"><span class="cl-2ac91790">estimate</span></p></td><td class="cl-2ac95e30"><p class="cl-2ac9250a"><span class="cl-2ac91790">std.error</span></p></td><td class="cl-2ac95e30"><p class="cl-2ac9250a"><span class="cl-2ac91790">statistic</span></p></td><td class="cl-2ac95e30"><p class="cl-2ac9250a"><span class="cl-2ac91790">p.value</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-2ac95e08"><p class="cl-2ac924ec"><span class="cl-2ac91790">P. halpensis</span></p></td><td class="cl-2ac95e08"><p class="cl-2ac924ec"><span class="cl-2ac91790">(Intercept)</span></p></td><td class="cl-2ac95dea"><p class="cl-2ac9250a"><span class="cl-2ac91790">-63.320</span></p></td><td class="cl-2ac95dea"><p class="cl-2ac9250a"><span class="cl-2ac91790">26.066</span></p></td><td class="cl-2ac95dea"><p class="cl-2ac9250a"><span class="cl-2ac91790">-2.429</span></p></td><td class="cl-2ac95dea"><p class="cl-2ac9250a"><span class="cl-2ac91790">0.032</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2ac95e08"><p class="cl-2ac924ec"><span class="cl-2ac91790">P. halpensis</span></p></td><td class="cl-2ac95e08"><p class="cl-2ac924ec"><span class="cl-2ac91790">year</span></p></td><td class="cl-2ac95dea"><p class="cl-2ac9250a"><span class="cl-2ac91790">0.032</span></p></td><td class="cl-2ac95dea"><p class="cl-2ac9250a"><span class="cl-2ac91790">0.013</span></p></td><td class="cl-2ac95dea"><p class="cl-2ac9250a"><span class="cl-2ac91790">2.455</span></p></td><td class="cl-2ac95dea"><p class="cl-2ac9250a"><span class="cl-2ac91790">0.030</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2ac95e08"><p class="cl-2ac924ec"><span class="cl-2ac91790">P. nigra</span></p></td><td class="cl-2ac95e08"><p class="cl-2ac924ec"><span class="cl-2ac91790">(Intercept)</span></p></td><td class="cl-2ac95dea"><p class="cl-2ac9250a"><span class="cl-2ac91790">-145.986</span></p></td><td class="cl-2ac95dea"><p class="cl-2ac9250a"><span class="cl-2ac91790">49.460</span></p></td><td class="cl-2ac95dea"><p class="cl-2ac9250a"><span class="cl-2ac91790">-2.952</span></p></td><td class="cl-2ac95dea"><p class="cl-2ac9250a"><span class="cl-2ac91790">0.012</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2ac95e08"><p class="cl-2ac924ec"><span class="cl-2ac91790">P. nigra</span></p></td><td class="cl-2ac95e08"><p class="cl-2ac924ec"><span class="cl-2ac91790">year</span></p></td><td class="cl-2ac95dea"><p class="cl-2ac9250a"><span class="cl-2ac91790">0.073</span></p></td><td class="cl-2ac95dea"><p class="cl-2ac9250a"><span class="cl-2ac91790">0.025</span></p></td><td class="cl-2ac95dea"><p class="cl-2ac9250a"><span class="cl-2ac91790">2.971</span></p></td><td class="cl-2ac95dea"><p class="cl-2ac9250a"><span class="cl-2ac91790">0.012</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2ac95e08"><p class="cl-2ac924ec"><span class="cl-2ac91790">P. pinaster</span></p></td><td class="cl-2ac95e08"><p class="cl-2ac924ec"><span class="cl-2ac91790">(Intercept)</span></p></td><td class="cl-2ac95dea"><p class="cl-2ac9250a"><span class="cl-2ac91790">-71.593</span></p></td><td class="cl-2ac95dea"><p class="cl-2ac9250a"><span class="cl-2ac91790">38.383</span></p></td><td class="cl-2ac95dea"><p class="cl-2ac9250a"><span class="cl-2ac91790">-1.865</span></p></td><td class="cl-2ac95dea"><p class="cl-2ac9250a"><span class="cl-2ac91790">0.087</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2ac95e08"><p class="cl-2ac924ec"><span class="cl-2ac91790">P. pinaster</span></p></td><td class="cl-2ac95e08"><p class="cl-2ac924ec"><span class="cl-2ac91790">year</span></p></td><td class="cl-2ac95dea"><p class="cl-2ac9250a"><span class="cl-2ac91790">0.036</span></p></td><td class="cl-2ac95dea"><p class="cl-2ac9250a"><span class="cl-2ac91790">0.019</span></p></td><td class="cl-2ac95dea"><p class="cl-2ac9250a"><span class="cl-2ac91790">1.884</span></p></td><td class="cl-2ac95dea"><p class="cl-2ac9250a"><span class="cl-2ac91790">0.084</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2ac95e08"><p class="cl-2ac924ec"><span class="cl-2ac91790">P. sylvestris</span></p></td><td class="cl-2ac95e08"><p class="cl-2ac924ec"><span class="cl-2ac91790">(Intercept)</span></p></td><td class="cl-2ac95dea"><p class="cl-2ac9250a"><span class="cl-2ac91790">-163.911</span></p></td><td class="cl-2ac95dea"><p class="cl-2ac9250a"><span class="cl-2ac91790">55.001</span></p></td><td class="cl-2ac95dea"><p class="cl-2ac9250a"><span class="cl-2ac91790">-2.980</span></p></td><td class="cl-2ac95dea"><p class="cl-2ac9250a"><span class="cl-2ac91790">0.011</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2ac95e1c"><p class="cl-2ac924ec"><span class="cl-2ac91790">P. sylvestris</span></p></td><td class="cl-2ac95e1c"><p class="cl-2ac924ec"><span class="cl-2ac91790">year</span></p></td><td class="cl-2ac95e12"><p class="cl-2ac9250a"><span class="cl-2ac91790">0.082</span></p></td><td class="cl-2ac95e12"><p class="cl-2ac9250a"><span class="cl-2ac91790">0.027</span></p></td><td class="cl-2ac95e12"><p class="cl-2ac9250a"><span class="cl-2ac91790">2.998</span></p></td><td class="cl-2ac95e12"><p class="cl-2ac9250a"><span class="cl-2ac91790">0.011</span></p></td></tr></tbody></table></div></template>
-<div id="1a560f6e-c7ab-4e16-8b8c-444d6e7d3a53"></div>
+</style><div class="tabwid"><style>.cl-cb04c7f4{border-collapse:collapse;}.cl-caff34f6{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-caff427a{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-caff4298{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-caff774a{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-caff775e{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-caff7768{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-caff7772{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-caff777c{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-caff777d{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}caption {color: #777;margin-top: 10px;margin-bottom: 10px;text-align: center;}</style><table class='cl-cb04c7f4'><thead><tr style="overflow-wrap:break-word;"><td class="cl-caff777c"><p class="cl-caff427a"><span class="cl-caff34f6">especie</span></p></td><td class="cl-caff777c"><p class="cl-caff427a"><span class="cl-caff34f6">term</span></p></td><td class="cl-caff777d"><p class="cl-caff4298"><span class="cl-caff34f6">estimate</span></p></td><td class="cl-caff777d"><p class="cl-caff4298"><span class="cl-caff34f6">std.error</span></p></td><td class="cl-caff777d"><p class="cl-caff4298"><span class="cl-caff34f6">statistic</span></p></td><td class="cl-caff777d"><p class="cl-caff4298"><span class="cl-caff34f6">p.value</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-caff775e"><p class="cl-caff427a"><span class="cl-caff34f6">P. halpensis</span></p></td><td class="cl-caff775e"><p class="cl-caff427a"><span class="cl-caff34f6">(Intercept)</span></p></td><td class="cl-caff774a"><p class="cl-caff4298"><span class="cl-caff34f6">-63.320</span></p></td><td class="cl-caff774a"><p class="cl-caff4298"><span class="cl-caff34f6">26.066</span></p></td><td class="cl-caff774a"><p class="cl-caff4298"><span class="cl-caff34f6">-2.429</span></p></td><td class="cl-caff774a"><p class="cl-caff4298"><span class="cl-caff34f6">0.032</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-caff775e"><p class="cl-caff427a"><span class="cl-caff34f6">P. halpensis</span></p></td><td class="cl-caff775e"><p class="cl-caff427a"><span class="cl-caff34f6">year</span></p></td><td class="cl-caff774a"><p class="cl-caff4298"><span class="cl-caff34f6">0.032</span></p></td><td class="cl-caff774a"><p class="cl-caff4298"><span class="cl-caff34f6">0.013</span></p></td><td class="cl-caff774a"><p class="cl-caff4298"><span class="cl-caff34f6">2.455</span></p></td><td class="cl-caff774a"><p class="cl-caff4298"><span class="cl-caff34f6">0.030</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-caff775e"><p class="cl-caff427a"><span class="cl-caff34f6">P. nigra</span></p></td><td class="cl-caff775e"><p class="cl-caff427a"><span class="cl-caff34f6">(Intercept)</span></p></td><td class="cl-caff774a"><p class="cl-caff4298"><span class="cl-caff34f6">-145.986</span></p></td><td class="cl-caff774a"><p class="cl-caff4298"><span class="cl-caff34f6">49.460</span></p></td><td class="cl-caff774a"><p class="cl-caff4298"><span class="cl-caff34f6">-2.952</span></p></td><td class="cl-caff774a"><p class="cl-caff4298"><span class="cl-caff34f6">0.012</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-caff775e"><p class="cl-caff427a"><span class="cl-caff34f6">P. nigra</span></p></td><td class="cl-caff775e"><p class="cl-caff427a"><span class="cl-caff34f6">year</span></p></td><td class="cl-caff774a"><p class="cl-caff4298"><span class="cl-caff34f6">0.073</span></p></td><td class="cl-caff774a"><p class="cl-caff4298"><span class="cl-caff34f6">0.025</span></p></td><td class="cl-caff774a"><p class="cl-caff4298"><span class="cl-caff34f6">2.971</span></p></td><td class="cl-caff774a"><p class="cl-caff4298"><span class="cl-caff34f6">0.012</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-caff775e"><p class="cl-caff427a"><span class="cl-caff34f6">P. pinaster</span></p></td><td class="cl-caff775e"><p class="cl-caff427a"><span class="cl-caff34f6">(Intercept)</span></p></td><td class="cl-caff774a"><p class="cl-caff4298"><span class="cl-caff34f6">-71.593</span></p></td><td class="cl-caff774a"><p class="cl-caff4298"><span class="cl-caff34f6">38.383</span></p></td><td class="cl-caff774a"><p class="cl-caff4298"><span class="cl-caff34f6">-1.865</span></p></td><td class="cl-caff774a"><p class="cl-caff4298"><span class="cl-caff34f6">0.087</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-caff775e"><p class="cl-caff427a"><span class="cl-caff34f6">P. pinaster</span></p></td><td class="cl-caff775e"><p class="cl-caff427a"><span class="cl-caff34f6">year</span></p></td><td class="cl-caff774a"><p class="cl-caff4298"><span class="cl-caff34f6">0.036</span></p></td><td class="cl-caff774a"><p class="cl-caff4298"><span class="cl-caff34f6">0.019</span></p></td><td class="cl-caff774a"><p class="cl-caff4298"><span class="cl-caff34f6">1.884</span></p></td><td class="cl-caff774a"><p class="cl-caff4298"><span class="cl-caff34f6">0.084</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-caff775e"><p class="cl-caff427a"><span class="cl-caff34f6">P. sylvestris</span></p></td><td class="cl-caff775e"><p class="cl-caff427a"><span class="cl-caff34f6">(Intercept)</span></p></td><td class="cl-caff774a"><p class="cl-caff4298"><span class="cl-caff34f6">-163.911</span></p></td><td class="cl-caff774a"><p class="cl-caff4298"><span class="cl-caff34f6">55.001</span></p></td><td class="cl-caff774a"><p class="cl-caff4298"><span class="cl-caff34f6">-2.980</span></p></td><td class="cl-caff774a"><p class="cl-caff4298"><span class="cl-caff34f6">0.011</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-caff7772"><p class="cl-caff427a"><span class="cl-caff34f6">P. sylvestris</span></p></td><td class="cl-caff7772"><p class="cl-caff427a"><span class="cl-caff34f6">year</span></p></td><td class="cl-caff7768"><p class="cl-caff4298"><span class="cl-caff34f6">0.082</span></p></td><td class="cl-caff7768"><p class="cl-caff4298"><span class="cl-caff34f6">0.027</span></p></td><td class="cl-caff7768"><p class="cl-caff4298"><span class="cl-caff34f6">2.998</span></p></td><td class="cl-caff7768"><p class="cl-caff4298"><span class="cl-caff34f6">0.011</span></p></td></tr></tbody></table></div></template>
+<div id="14765956-4340-44b2-95a6-1cfd1192cefc"></div>
 <script>
-var dest = document.getElementById("1a560f6e-c7ab-4e16-8b8c-444d6e7d3a53");
-var template = document.getElementById("b4b7aea5-1771-4a91-a68b-ddd5ecbf72bf");
+var dest = document.getElementById("14765956-4340-44b2-95a6-1cfd1192cefc");
+var template = document.getElementById("ae10965d-25fd-4fd6-8911-6622583ab1d5");
 var caption = template.content.querySelector("caption");
 if(caption) {
   caption.style.cssText = "display:block;text-align:center;";
