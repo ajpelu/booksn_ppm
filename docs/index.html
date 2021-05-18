@@ -325,16 +325,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomajpelubooksnppmtreee061f4ed548b759d28b05aa517acb9c88be9fdbatargetblanke061f4ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/ajpelu/booksn_ppm/tree/e061f4ed548b759d28b05aa517acb9c88be9fdba" target="_blank">e061f4e</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomajpelubooksnppmtree2e8acb8541c5a9887fb33b491c24496420f97072targetblank2e8acb8a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/ajpelu/booksn_ppm/tree/2e8acb8541c5a9887fb33b491c24496420f97072" target="_blank">2e8acb8</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomajpelubooksnppmtreee061f4ed548b759d28b05aa517acb9c88be9fdbatargetblanke061f4ea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomajpelubooksnppmtree2e8acb8541c5a9887fb33b491c24496420f97072targetblank2e8acb8a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/ajpelu/booksn_ppm/tree/e061f4ed548b759d28b05aa517acb9c88be9fdba" target="_blank">e061f4e</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/ajpelu/booksn_ppm/tree/2e8acb8541c5a9887fb33b491c24496420f97072" target="_blank">2e8acb8</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -348,16 +348,11 @@ Ignored files:
 
 Untracked files:
     Untracked:  analysis/dataNAO.Rmd
-    Untracked:  output/comparaMK_especies.pdf
-    Untracked:  output/comparaMKsig_especies.pdf
-    Untracked:  output/tau_elev.pdf
 
 Unstaged changes:
+    Modified:   analysis/references.bib
     Modified:   data/coplas2019.csv
     Modified:   data/coplas2019sn.csv
-    Modified:   output/evolucion_temporal_elevacion.pdf
-    Modified:   output/evolucion_temporal_especies.pdf
-    Modified:   output/evolucion_temporal_reg2005.pdf
 
 </code></pre>
 <p>
@@ -396,6 +391,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/ajpelu/booksn_ppm/blob/2e8acb8541c5a9887fb33b491c24496420f97072/analysis/index.Rmd" target="_blank">2e8acb8</a>
+</td>
+<td>
+Antonio J Perez-Luque
+</td>
+<td>
+2021-05-18
+</td>
+<td>
+update index and add new analysis, diparity
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/ajpelu/booksn_ppm/95422ea6e9a64ad0de361bcd1f2b196f38b64398/docs/index.html" target="_blank">95422ea</a>
+</td>
+<td>
+Antonio J Perez-Luque
+</td>
+<td>
+2021-05-18
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -626,6 +655,14 @@ Start workflowr project.
 <h2>Análisis de Mann-Kendall</h2>
 <ul>
 <li>Analizmos las <a href="computeMannKendall.html">tendencias temporales</a> para cada parcela utilizando el test no paramétrico de Mann-Kendall.</li>
+</ul>
+</div>
+<div id="análisis-de-disparidad-de-las-series-de-datos" class="section level2">
+<h2>Análisis de Disparidad de las series de datos</h2>
+<ul>
+<li>Disparidad entre los valores de infestación entre años para cada parcela</li>
+<li>Variabilidad para cada serie de datos (cada parcela)</li>
+<li>Resultados <a href="computeDisparity.html">aquí</a></li>
 </ul>
 </div>
 
