@@ -12,3 +12,11 @@ editor_options:
 - En este [script](preparaDatos.html) partimos de los datos originales de COPLAS desde 1992-2019 y generamos un data.frame "limpio" (corrección de errores), con la elevación y la especie de pino. Este dataset se guarda en `/data/coplas2019.csv`.
 
 - Para el análisis de los datos de Sierra Nevada, vamos a generar un buffer de diferentes distancias para ver que parcelas elegimos. El proceso puede verse [aquí](bufferSN.html). Hemos cogido un buffer de 20 km y hemos añadido algunas parcelas (de Motril), y hemos eliminado algunas de Sierra Alhamilla. Los datos están en: `/data/coplas2019sn.csv`.
+
+## Exploración del patrón temporal 
+- Vamos a explorar el patrón temporal de los niveles de infestación medios por año, agrupados por grupo de elevación y por especie. 
+- Nos quedamos con la agrupación por especie. Seleccionamos 4 especies (*P. nigra*, *P. halpensis*, *P. sylvestris*, *P. pinaster*)
+- Los resultados pueden verse [aquí](evolucionTemporal.html) y los gráficos: 
+
+  - [Evolución temporal infestación *vs* especie](/output/evolucion_temporal_especies.pdf) 
+  - Evolución temporal infestación *vs* elevación (categórica)
