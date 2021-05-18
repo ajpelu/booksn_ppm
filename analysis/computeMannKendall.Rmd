@@ -1,0 +1,247 @@
+---
+title: "computeMannKendall"
+author: "Antonio J Perez-Luque"
+date: "2021-05-18"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Calcular la tendencia temporal de la serie a nivel de parcela 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+```{r}
+library("tidyverse")
+library("here")
+library("sf")
+library("flextable")
+library("Kendall")
+library("ggpubr")
+library("ggstatsplot")
+library("DHARMa")
+```
+
+```{r}
+coplas2019 <- read_csv(here::here("data/coplas2019sn.csv"))
+
+df <- coplas2019 %>% 
+  filter(!is.na(especie)) %>% 
+  dplyr::select(code, especie, `1993`:`2019`) %>% 
+  pivot_longer(names_to = "year", values_to = "infestacion", `1993`:`2019`) 
+```
+
+
+- Calculamos la tendencia temporal de la serie usando el test no paramétrico Mann-Kendall ($tau$)
+- Clasificamos la tendencias en sig y no significativas 
+
+```{r, results='hide'}
+parcelas <- unique(df$code)
+
+df_trend <- c() 
+
+for (i in 1:length(parcelas)) { 
+  
+  aux <- df %>% 
+    filter(year > 2004) %>% 
+    filter(code == parcelas[i]) %>% dplyr::select(infestacion) 
+
+  #MK 
+  mk <- Kendall::MannKendall(aux$infestacion)
+  
+ #auxNA <- aux$infestacion[!is.na(aux$infestacion)]
+ #sen <- trend::sens.slope(auxNA)
+  
+  out <- data.frame(code = parcelas[i], 
+                    mk_tau = mk$tau,
+                    mk_pvalue = mk$sl)
+                    #sen = sen$estimates,
+                    #sen_pvalue = sen$p.value)
+  
+  df_trend <- rbind(df_trend, out)
+}
+  
+mkdf <- coplas2019 %>% 
+  dplyr::select(
+    code, elevF, elev_mean, especie) %>% 
+  inner_join(df_trend) %>% 
+  filter(!is.na(especie))
+
+
+mkdf <- mkdf %>%  
+  mutate(significant = case_when(
+    mk_pvalue < 0.05 ~ "sig", 
+    TRUE ~ "nosig"
+  )) %>% 
+  mutate(sig = case_when(
+    mk_pvalue < 0.05 ~ 1, 
+    TRUE ~ 0))
+
+```
+
+- Comparación de las tendencias por especie 
+```{r, echo=FALSE}
+colores_pinos <- c("P. halpensis" = "#809c13", 
+                   "P. nigra" = "#45492a", 
+                   "P. pinaster" = "gray", 
+                   "P. sylvestris" = "#ffa64d")
+```
+
+```{r}
+plot_comparaTaus <- ggstatsplot::ggbetweenstats(
+  data = mkdf,
+  x = especie,
+  y = mk_tau,
+  ylab = "Tau (Mann-Kendall)") +
+  ggplot2::scale_y_continuous(limits=c(-1,1)) +
+  ggplot2::scale_color_manual(values = colores_pinos)
+  
+```
+
+```{r, fig.width=6, fig.height=6, echo=FALSE}
+ggsave(filename = here::here("output/comparaMK_especies.pdf"), 
+       width = 16, height = 12, units = "cm")
+print(plot_comparaTaus )
+dev.off()
+```
+
+- Las tendencias observadas en el nivel de infestación para cada una de las parcelas analizadas se han agrupado por especies y no se observan diferencias en cuanto a la tendencia ($tau$ de Mann-Kendall), es decir, no se observan tendencias temporales significativamente diferentes entre especies en nuestra serie de datos. 
+
+- Seguidamente analizamos las tendencias significativas. 
+
+ 
+```{r, echo=FALSE}
+comparisons <- list(
+  c("0verylow", "1low"), c("0verylow", "2medium"), c("0verylow", "3high"),
+  c("1low", "2medium"), c("1low", "3high"),  c("2medium","3high")
+)
+
+comparisons_sp <- list(
+c("P. halpensis", "P. sylvestris"),
+c("P. halpensis", "P. nigra"),
+c("P. halpensis", "P. pinaster"),
+c("P. sylvestris", "P. nigra"), 
+c("P. sylvestris", "P. pinaster"),
+c("P. nigra","P. pinaster"))
+```
+
+```{r}
+pct_sig <- mkdf %>% group_by(especie, significant) %>% 
+  summarise(n=n()) %>% 
+  mutate(pct_tot = round(n/sum(n)*100,2)) 
+
+pct_sig %>% flextable() %>% autofit()
+```
+
+- Entre un 15-19 % de las parcelas presentan tendencias significativas, la mayoría positivas, lo que indica un aumento de la incidencia media. Al analizar por especie vemos que *P. halepensis* (~19%) y *P. sylvestris* (~19.3%) son las que tienen mayor porcentaje de tendencias significativas. 
+
+```{r}
+mksig_plot <- ggplot(mkdf, aes(x=especie, y= mk_tau, shape=significant, fill=especie, colour=especie)) + 
+  geom_point(position = position_jitter(), 
+             size=1.5) +
+  scale_shape_manual(values = c(1, 19)) + 
+  theme_bw() + 
+  theme(panel.grid = element_blank()) + 
+  scale_color_manual(values = colores_pinos) + 
+  geom_label(data=(pct_sig %>% filter(significant == "sig")), 
+             aes(x=especie, y=0.9, label=
+                   paste0(pct_tot, " %")), 
+             fill="white", color = "black")
+```
+
+```{r, fig.height=4, fig.width=6}
+ggsave(filename = here::here("output/comparaMKsig_especies.pdf"), 
+       width = 6, height = 5)
+print(mksig_plot)
+dev.off()
+```
+
+- Además, destaca que esas tendencias (las significativas) son las que presentan mayor magnitud ($\mu_{\tau}$ 0.55 - 0.59) 
+
+```{r}
+mkdf %>% 
+  filter(significant == "sig") %>% 
+  filter(mk_tau > 0) %>% 
+  ggstatsplot::grouped_gghistostats(x=mk_tau, 
+                                    grouping.var = especie)
+```
+
+## Modelizar la tendencia en función de la Elevación 
+
+- Construimos un GLM para la tendencia ($\tau$) frente a la elevación
+
+```{r}
+# modelo glm 
+model.tau <- glm(mk_tau ~ elev_mean, data = mkdf, family = "gaussian")
+
+model.tau %>% as_flextable()
+```
+
+```{r}
+# visualiza 
+tau_elev <- visreg::visreg(model.tau, gg=TRUE, 
+               xlab = "Elevation (m)", 
+               ylab = "Mann-Kendall tau") + 
+  theme_bw() + 
+  geom_point(data=(mkdf %>% filter(sig == 1)), 
+              aes(x=elev_mean, y=mk_tau), color = "black", size=1.2)
+```
+
+```{r}
+ggsave(filename = here::here("output/tau_elev.pdf"), 
+       width = 9, height = 9, units = "cm")
+print(tau_elev)
+dev.off()
+```
+
+### Validación del modelo 
+```{r}
+# plots de validación 
+par(mfcol=c(2,2))
+plot(model.tau)
+```
+
+
+```{r}
+s <- simulateResiduals(fittedModel = model.tau)
+plot(s)
+```
+
+
+## Modelo de tendencias significativas *vs* elevación 
+
+- Voy a analizar solo las tau positivas 
+- No parece existir una relación etnre los taus posisitvo y significativos y la elevación,  
+
+```{r}
+tauspos <- mkdf %>% filter(mk_tau >= 0)
+tp <- glm(sig ~ elev_mean, data = tauspos, family="binomial")
+tp %>% as_flextable()
+```
+
+```{r}
+visreg::visreg(tp,
+               xlab = "Elevation (m)", 
+               ylab = "Prob. tau pos. sig.", 
+               scale = "response", 
+               ylim=c(0,1))
+```
+
+
+```{r, eval=FALSE, echo=FALSE}
+# tausneg <- mkdf %>% filter(mk_tau <= 0)
+# tn <- glm(sig ~ elev_mean, data =tausneg, family="binomial")
+# tn %>% as_flextable()
+
+# mydata <- data.frame(elev_mean = seq(200, 2400))
+# pred <- predict(tp, newdata = mydata,  type = "response")
+# plot(x=tauspos$elev_mean, y=tauspos$sig)
+# lines(mydata$elev_mean, pred)
+```
+
+
+
+
+
