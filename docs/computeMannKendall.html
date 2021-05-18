@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Antonio J Perez-Luque" />
+
+<meta name="date" content="2021-05-18" />
+
+<title>computeMannKendall</title>
+
+<script src="site_libs/header-attrs-2.6.6/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/tabwid-1.0.0/tabwid.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">booksn_ppm</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">computeMannKendall</h1>
+<h4 class="author">Antonio J Perez-Luque</h4>
+<h4 class="date">2021-05-18</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2021-05-18
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>booksn_ppm/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20210517code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20210517)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20210517code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20210517)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomajpelubooksnppmtreea00d0281693cc67d7fac7359b710e45ccd7aa51atargetblanka00d028a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/ajpelu/booksn_ppm/tree/a00d0281693cc67d7fac7359b710e45ccd7aa51a" target="_blank">a00d028</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomajpelubooksnppmtreea00d0281693cc67d7fac7359b710e45ccd7aa51atargetblanka00d028a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/ajpelu/booksn_ppm/tree/a00d0281693cc67d7fac7359b710e45ccd7aa51a" target="_blank">a00d028</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    data/.DS_Store
+    Ignored:    data/data_raw/
+
+Untracked files:
+    Untracked:  analysis/dataNAO.Rmd
+    Untracked:  output/comparaMK_especies.pdf
+    Untracked:  output/comparaMKsig_especies.pdf
+    Untracked:  output/tau_elev.pdf
+
+Unstaged changes:
+    Modified:   analysis/index.Rmd
+    Modified:   data/coplas2019.csv
+    Modified:   data/coplas2019sn.csv
+    Modified:   output/evolucion_temporal_elevacion.pdf
+    Modified:   output/evolucion_temporal_especies.pdf
+    Modified:   output/evolucion_temporal_reg2005.pdf
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/computeMannKendall.Rmd</code>) and HTML (<code>docs/computeMannKendall.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/ajpelu/booksn_ppm/blob/a00d0281693cc67d7fac7359b710e45ccd7aa51a/analysis/computeMannKendall.Rmd" target="_blank">a00d028</a>
+</td>
+<td>
+Antonio J Perez-Luque
+</td>
+<td>
+2021-05-18
+</td>
+<td>
+analysis of trends
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="calcular-la-tendencia-temporal-de-la-serie-a-nivel-de-parcela" class="section level2">
+<h2>Calcular la tendencia temporal de la serie a nivel de parcela</h2>
+<pre class="r"><code>library(&quot;tidyverse&quot;)
+library(&quot;here&quot;)
+library(&quot;sf&quot;)
+library(&quot;flextable&quot;)
+library(&quot;Kendall&quot;)
+library(&quot;ggpubr&quot;)
+library(&quot;ggstatsplot&quot;)
+library(&quot;DHARMa&quot;)</code></pre>
+<pre class="r"><code>coplas2019 &lt;- read_csv(here::here(&quot;data/coplas2019sn.csv&quot;))
+
+df &lt;- coplas2019 %&gt;% 
+  filter(!is.na(especie)) %&gt;% 
+  dplyr::select(code, especie, `1993`:`2019`) %&gt;% 
+  pivot_longer(names_to = &quot;year&quot;, values_to = &quot;infestacion&quot;, `1993`:`2019`) </code></pre>
+<ul>
+<li>Calculamos la tendencia temporal de la serie usando el test no paramétrico Mann-Kendall (<span class="math inline">\(tau\)</span>)</li>
+<li>Clasificamos la tendencias en sig y no significativas</li>
+</ul>
+<pre class="r"><code>parcelas &lt;- unique(df$code)
+
+df_trend &lt;- c() 
+
+for (i in 1:length(parcelas)) { 
+  
+  aux &lt;- df %&gt;% 
+    filter(year &gt; 2004) %&gt;% 
+    filter(code == parcelas[i]) %&gt;% dplyr::select(infestacion) 
+
+  #MK 
+  mk &lt;- Kendall::MannKendall(aux$infestacion)
+  
+ #auxNA &lt;- aux$infestacion[!is.na(aux$infestacion)]
+ #sen &lt;- trend::sens.slope(auxNA)
+  
+  out &lt;- data.frame(code = parcelas[i], 
+                    mk_tau = mk$tau,
+                    mk_pvalue = mk$sl)
+                    #sen = sen$estimates,
+                    #sen_pvalue = sen$p.value)
+  
+  df_trend &lt;- rbind(df_trend, out)
+}
+  
+mkdf &lt;- coplas2019 %&gt;% 
+  dplyr::select(
+    code, elevF, elev_mean, especie) %&gt;% 
+  inner_join(df_trend) %&gt;% 
+  filter(!is.na(especie))
+
+
+mkdf &lt;- mkdf %&gt;%  
+  mutate(significant = case_when(
+    mk_pvalue &lt; 0.05 ~ &quot;sig&quot;, 
+    TRUE ~ &quot;nosig&quot;
+  )) %&gt;% 
+  mutate(sig = case_when(
+    mk_pvalue &lt; 0.05 ~ 1, 
+    TRUE ~ 0))</code></pre>
+<ul>
+<li>Comparación de las tendencias por especie</li>
+</ul>
+<pre class="r"><code>plot_comparaTaus &lt;- ggstatsplot::ggbetweenstats(
+  data = mkdf,
+  x = especie,
+  y = mk_tau,
+  ylab = &quot;Tau (Mann-Kendall)&quot;) +
+  ggplot2::scale_y_continuous(limits=c(-1,1)) +
+  ggplot2::scale_color_manual(values = colores_pinos)</code></pre>
+<p><img src="figure/computeMannKendall.Rmd/unnamed-chunk-6-1.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>null device 
+          1 </code></pre>
+<ul>
+<li><p>Las tendencias observadas en el nivel de infestación para cada una de las parcelas analizadas se han agrupado por especies y no se observan diferencias en cuanto a la tendencia (<span class="math inline">\(tau\)</span> de Mann-Kendall), es decir, no se observan tendencias temporales significativamente diferentes entre especies en nuestra serie de datos.</p></li>
+<li><p>Seguidamente analizamos las tendencias significativas.</p></li>
+</ul>
+<pre class="r"><code>pct_sig &lt;- mkdf %&gt;% group_by(especie, significant) %&gt;% 
+  summarise(n=n()) %&gt;% 
+  mutate(pct_tot = round(n/sum(n)*100,2)) 
+
+pct_sig %&gt;% flextable() %&gt;% autofit()</code></pre>
+<template id="53f1d7a3-0fd8-4475-b918-6f79a4e50aa9"><style>
+.tabwid table{
+  border-collapse:collapse;
+  line-height:1;
+  margin-left:auto;
+  margin-right:auto;
+  border-width: 0;
+  display: table;
+  margin-top: 1.275em;
+  margin-bottom: 1.275em;
+  border-spacing: 0;
+  border-color: transparent;
+}
+.tabwid_left table{
+  margin-left:0;
+}
+.tabwid_right table{
+  margin-right:0;
+}
+.tabwid td {
+    padding: 0;
+}
+.tabwid a {
+  text-decoration: none;
+}
+.tabwid thead {
+    background-color: transparent;
+}
+.tabwid tfoot {
+    background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+</style><div class="tabwid"><style>.cl-ea406bb2{border-collapse:collapse;}.cl-ea3906ec{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-ea391d6c{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ea391d80{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ea395476{width:69.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ea39548a{width:80.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ea395494{width:38.9pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ea39549e{width:53.6pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ea39549f{width:69.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ea3954a8{width:80.5pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ea3954b2{width:53.6pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ea3954bc{width:38.9pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ea3954c6{width:80.5pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ea3954c7{width:69.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ea3954d0{width:38.9pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ea3954da{width:53.6pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}caption {color: #777;margin-top: 10px;margin-bottom: 10px;text-align: center;}</style><table class='cl-ea406bb2'><thead><tr style="overflow-wrap:break-word;"><td class="cl-ea3954c6"><p class="cl-ea391d6c"><span class="cl-ea3906ec">especie</span></p></td><td class="cl-ea3954c7"><p class="cl-ea391d6c"><span class="cl-ea3906ec">significant</span></p></td><td class="cl-ea3954d0"><p class="cl-ea391d80"><span class="cl-ea3906ec">n</span></p></td><td class="cl-ea3954da"><p class="cl-ea391d80"><span class="cl-ea3906ec">pct_tot</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-ea39548a"><p class="cl-ea391d6c"><span class="cl-ea3906ec">P. halpensis</span></p></td><td class="cl-ea395476"><p class="cl-ea391d6c"><span class="cl-ea3906ec">nosig</span></p></td><td class="cl-ea395494"><p class="cl-ea391d80"><span class="cl-ea3906ec">271</span></p></td><td class="cl-ea39549e"><p class="cl-ea391d80"><span class="cl-ea3906ec">80.90</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-ea39548a"><p class="cl-ea391d6c"><span class="cl-ea3906ec">P. halpensis</span></p></td><td class="cl-ea395476"><p class="cl-ea391d6c"><span class="cl-ea3906ec">sig</span></p></td><td class="cl-ea395494"><p class="cl-ea391d80"><span class="cl-ea3906ec">64</span></p></td><td class="cl-ea39549e"><p class="cl-ea391d80"><span class="cl-ea3906ec">19.10</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-ea39548a"><p class="cl-ea391d6c"><span class="cl-ea3906ec">P. nigra</span></p></td><td class="cl-ea395476"><p class="cl-ea391d6c"><span class="cl-ea3906ec">nosig</span></p></td><td class="cl-ea395494"><p class="cl-ea391d80"><span class="cl-ea3906ec">173</span></p></td><td class="cl-ea39549e"><p class="cl-ea391d80"><span class="cl-ea3906ec">82.78</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-ea39548a"><p class="cl-ea391d6c"><span class="cl-ea3906ec">P. nigra</span></p></td><td class="cl-ea395476"><p class="cl-ea391d6c"><span class="cl-ea3906ec">sig</span></p></td><td class="cl-ea395494"><p class="cl-ea391d80"><span class="cl-ea3906ec">36</span></p></td><td class="cl-ea39549e"><p class="cl-ea391d80"><span class="cl-ea3906ec">17.22</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-ea39548a"><p class="cl-ea391d6c"><span class="cl-ea3906ec">P. pinaster</span></p></td><td class="cl-ea395476"><p class="cl-ea391d6c"><span class="cl-ea3906ec">nosig</span></p></td><td class="cl-ea395494"><p class="cl-ea391d80"><span class="cl-ea3906ec">137</span></p></td><td class="cl-ea39549e"><p class="cl-ea391d80"><span class="cl-ea3906ec">85.62</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-ea39548a"><p class="cl-ea391d6c"><span class="cl-ea3906ec">P. pinaster</span></p></td><td class="cl-ea395476"><p class="cl-ea391d6c"><span class="cl-ea3906ec">sig</span></p></td><td class="cl-ea395494"><p class="cl-ea391d80"><span class="cl-ea3906ec">23</span></p></td><td class="cl-ea39549e"><p class="cl-ea391d80"><span class="cl-ea3906ec">14.37</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-ea39548a"><p class="cl-ea391d6c"><span class="cl-ea3906ec">P. sylvestris</span></p></td><td class="cl-ea395476"><p class="cl-ea391d6c"><span class="cl-ea3906ec">nosig</span></p></td><td class="cl-ea395494"><p class="cl-ea391d80"><span class="cl-ea3906ec">230</span></p></td><td class="cl-ea39549e"><p class="cl-ea391d80"><span class="cl-ea3906ec">80.70</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-ea3954a8"><p class="cl-ea391d6c"><span class="cl-ea3906ec">P. sylvestris</span></p></td><td class="cl-ea39549f"><p class="cl-ea391d6c"><span class="cl-ea3906ec">sig</span></p></td><td class="cl-ea3954bc"><p class="cl-ea391d80"><span class="cl-ea3906ec">55</span></p></td><td class="cl-ea3954b2"><p class="cl-ea391d80"><span class="cl-ea3906ec">19.30</span></p></td></tr></tbody></table></div></template>
+<div id="c3419d08-4533-4dab-9ac9-fdaa5abf997d"></div>
+<script>
+var dest = document.getElementById("c3419d08-4533-4dab-9ac9-fdaa5abf997d");
+var template = document.getElementById("53f1d7a3-0fd8-4475-b918-6f79a4e50aa9");
+var caption = template.content.querySelector("caption");
+if(caption) {
+  caption.style.cssText = "display:block;text-align:center;";
+  var newcapt = document.createElement("p");
+  newcapt.appendChild(caption)
+  dest.parentNode.insertBefore(newcapt, dest.previousSibling);
+}
+var fantome = dest.attachShadow({mode: 'open'});
+var templateContent = template.content;
+fantome.appendChild(templateContent);
+</script>
+
+<ul>
+<li>Entre un 15-19 % de las parcelas presentan tendencias significativas, la mayoría positivas, lo que indica un aumento de la incidencia media. Al analizar por especie vemos que <em>P. halepensis</em> (~19%) y <em>P. sylvestris</em> (~19.3%) son las que tienen mayor porcentaje de tendencias significativas.</li>
+</ul>
+<pre class="r"><code>mksig_plot &lt;- ggplot(mkdf, aes(x=especie, y= mk_tau, shape=significant, fill=especie, colour=especie)) + 
+  geom_point(position = position_jitter(), 
+             size=1.5) +
+  scale_shape_manual(values = c(1, 19)) + 
+  theme_bw() + 
+  theme(panel.grid = element_blank()) + 
+  scale_color_manual(values = colores_pinos) + 
+  geom_label(data=(pct_sig %&gt;% filter(significant == &quot;sig&quot;)), 
+             aes(x=especie, y=0.9, label=
+                   paste0(pct_tot, &quot; %&quot;)), 
+             fill=&quot;white&quot;, color = &quot;black&quot;)</code></pre>
+<pre class="r"><code>ggsave(filename = here::here(&quot;output/comparaMKsig_especies.pdf&quot;), 
+       width = 6, height = 5)
+print(mksig_plot)</code></pre>
+<p><img src="figure/computeMannKendall.Rmd/unnamed-chunk-10-1.png" width="576" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>dev.off()</code></pre>
+<pre><code>null device 
+          1 </code></pre>
+<ul>
+<li>Además, destaca que esas tendencias (las significativas) son las que presentan mayor magnitud (<span class="math inline">\(\mu_{\tau}\)</span> 0.55 - 0.59)</li>
+</ul>
+<pre class="r"><code>mkdf %&gt;% 
+  filter(significant == &quot;sig&quot;) %&gt;% 
+  filter(mk_tau &gt; 0) %&gt;% 
+  ggstatsplot::grouped_gghistostats(x=mk_tau, 
+                                    grouping.var = especie)</code></pre>
+<p><img src="figure/computeMannKendall.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="modelizar-la-tendencia-en-función-de-la-elevación" class="section level2">
+<h2>Modelizar la tendencia en función de la Elevación</h2>
+<ul>
+<li>Construimos un GLM para la tendencia (<span class="math inline">\(\tau\)</span>) frente a la elevación</li>
+</ul>
+<pre class="r"><code># modelo glm 
+model.tau &lt;- glm(mk_tau ~ elev_mean, data = mkdf, family = &quot;gaussian&quot;)
+
+model.tau %&gt;% as_flextable()</code></pre>
+<template id="82c95f2d-3951-4554-a6bf-c2a18dfa745b"><style>
+.tabwid table{
+  border-collapse:collapse;
+  line-height:1;
+  margin-left:auto;
+  margin-right:auto;
+  border-width: 0;
+  display: table;
+  margin-top: 1.275em;
+  margin-bottom: 1.275em;
+  border-spacing: 0;
+  border-color: transparent;
+}
+.tabwid_left table{
+  margin-left:0;
+}
+.tabwid_right table{
+  margin-right:0;
+}
+.tabwid td {
+    padding: 0;
+}
+.tabwid a {
+  text-decoration: none;
+}
+.tabwid thead {
+    background-color: transparent;
+}
+.tabwid tfoot {
+    background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+</style><div class="tabwid"><style>.cl-efd52f22{border-collapse:collapse;}.cl-efca912a{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-efca915c{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-efcab006{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-efcab024{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-efcaee18{width:92.7pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-efcaee2c{width:51.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-efcaee36{width:55.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-efcaee40{width:63.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-efcaee4a{width:74.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-efcaee54{width:56.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-efcaee5e{width:92.7pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-efcaee68{width:56.5pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-efcaee72{width:51.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-efcaee7c{width:55.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-efcaee86{width:74.3pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-efcaee90{width:63.3pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-efcaee9a{width:74.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-efcaee9b{width:55.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-efcaeea4{width:63.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-efcaeeae{width:51.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-efcaeeaf{width:92.7pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-efcaeeb8{width:56.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-efcaeec2{width:63.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-efcaeecc{width:56.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-efcaeed6{width:55.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-efcaeee0{width:92.7pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-efcaeeea{width:74.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-efcaeef4{width:51.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-efcaeefe{width:63.3pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-efcaef08{width:74.3pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-efcaef09{width:55.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-efcaef12{width:51.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-efcaef1c{width:92.7pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-efcaef26{width:56.5pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}caption {color: #777;margin-top: 10px;margin-bottom: 10px;text-align: center;}</style><table class='cl-efd52f22'><thead><tr style="overflow-wrap:break-word;"><td class="cl-efcaef08"><p class="cl-efcab006"><span class="cl-efca912a"></span></p></td><td class="cl-efcaeefe"><p class="cl-efcab024"><span class="cl-efca912a">Estimate</span></p></td><td class="cl-efcaef1c"><p class="cl-efcab024"><span class="cl-efca912a">Standard Error</span></p></td><td class="cl-efcaef09"><p class="cl-efcab024"><span class="cl-efca912a">z value</span></p></td><td class="cl-efcaef26"><p class="cl-efcab024"><span class="cl-efca912a">Pr(&gt;|z|)</span></p></td><td class="cl-efcaef12"><p class="cl-efcab006"><span class="cl-efca912a">Signif.</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-efcaee4a"><p class="cl-efcab006"><span class="cl-efca912a">(Intercept)</span></p></td><td class="cl-efcaee40"><p class="cl-efcab024"><span class="cl-efca912a">0.319</span></p></td><td class="cl-efcaee18"><p class="cl-efcab024"><span class="cl-efca912a">0.033</span></p></td><td class="cl-efcaee36"><p class="cl-efcab024"><span class="cl-efca912a">9.583</span></p></td><td class="cl-efcaee54"><p class="cl-efcab024"><span class="cl-efca912a">0.0000</span></p></td><td class="cl-efcaee2c"><p class="cl-efcab006"><span class="cl-efca912a">***</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-efcaee86"><p class="cl-efcab006"><span class="cl-efca912a">elev_mean</span></p></td><td class="cl-efcaee90"><p class="cl-efcab024"><span class="cl-efca912a">-0.000</span></p></td><td class="cl-efcaee5e"><p class="cl-efcab024"><span class="cl-efca912a">0.000</span></p></td><td class="cl-efcaee7c"><p class="cl-efcab024"><span class="cl-efca912a">-2.545</span></p></td><td class="cl-efcaee68"><p class="cl-efcab024"><span class="cl-efca912a">0.0111</span></p></td><td class="cl-efcaee72"><p class="cl-efcab006"><span class="cl-efca912a">*</span></p></td></tr></tbody><tfoot><tr style="overflow-wrap:break-word;"><td  colspan="6"class="cl-efcaee9a"><p class="cl-efcab024"><span class="cl-efca915c">Signif. codes: 0 &lt;= '***' &lt; 0.001 &lt; '**' &lt; 0.01 &lt; '*' &lt; 0.05 &lt; '.' &lt; 0.1 &lt; '' &lt; 1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="6"class="cl-efcaeeea"><p class="cl-efcab006"><span class="cl-efca912a"> </span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="6"class="cl-efcaeeea"><p class="cl-efcab006"><span class="cl-efca912a">(Dispersion parameter for gaussian family taken to be 0.08951858)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="6"class="cl-efcaeeea"><p class="cl-efcab006"><span class="cl-efca912a">Null deviance: 88.93 on 988 degrees of freedom</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="6"class="cl-efcaeeea"><p class="cl-efcab006"><span class="cl-efca912a">Residual deviance: 88.35 on 987 degrees of freedom</span></p></td></tr></tfoot></table></div></template>
+<div id="ff88a8d8-7bf3-4a0d-b20e-d04297ce4f9f"></div>
+<script>
+var dest = document.getElementById("ff88a8d8-7bf3-4a0d-b20e-d04297ce4f9f");
+var template = document.getElementById("82c95f2d-3951-4554-a6bf-c2a18dfa745b");
+var caption = template.content.querySelector("caption");
+if(caption) {
+  caption.style.cssText = "display:block;text-align:center;";
+  var newcapt = document.createElement("p");
+  newcapt.appendChild(caption)
+  dest.parentNode.insertBefore(newcapt, dest.previousSibling);
+}
+var fantome = dest.attachShadow({mode: 'open'});
+var templateContent = template.content;
+fantome.appendChild(templateContent);
+</script>
+
+<pre class="r"><code># visualiza 
+tau_elev &lt;- visreg::visreg(model.tau, gg=TRUE, 
+               xlab = &quot;Elevation (m)&quot;, 
+               ylab = &quot;Mann-Kendall tau&quot;) + 
+  theme_bw() + 
+  geom_point(data=(mkdf %&gt;% filter(sig == 1)), 
+              aes(x=elev_mean, y=mk_tau), color = &quot;black&quot;, size=1.2)</code></pre>
+<pre class="r"><code>ggsave(filename = here::here(&quot;output/tau_elev.pdf&quot;), 
+       width = 9, height = 9, units = &quot;cm&quot;)
+print(tau_elev)</code></pre>
+<p><img src="figure/computeMannKendall.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>dev.off()</code></pre>
+<pre><code>null device 
+          1 </code></pre>
+<div id="validación-del-modelo" class="section level3">
+<h3>Validación del modelo</h3>
+<pre class="r"><code># plots de validación 
+par(mfcol=c(2,2))
+plot(model.tau)</code></pre>
+<p><img src="figure/computeMannKendall.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>s &lt;- simulateResiduals(fittedModel = model.tau)
+plot(s)</code></pre>
+<p><img src="figure/computeMannKendall.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="modelo-de-tendencias-significativas-vs-elevación" class="section level2">
+<h2>Modelo de tendencias significativas <em>vs</em> elevación</h2>
+<ul>
+<li>Voy a analizar solo las tau positivas</li>
+<li>No parece existir una relación etnre los taus posisitvo y significativos y la elevación,</li>
+</ul>
+<pre class="r"><code>tauspos &lt;- mkdf %&gt;% filter(mk_tau &gt;= 0)
+tp &lt;- glm(sig ~ elev_mean, data = tauspos, family=&quot;binomial&quot;)
+tp %&gt;% as_flextable()</code></pre>
+<template id="1cfaddb5-676b-4f0f-a912-ffd751d43a01"><style>
+.tabwid table{
+  border-collapse:collapse;
+  line-height:1;
+  margin-left:auto;
+  margin-right:auto;
+  border-width: 0;
+  display: table;
+  margin-top: 1.275em;
+  margin-bottom: 1.275em;
+  border-spacing: 0;
+  border-color: transparent;
+}
+.tabwid_left table{
+  margin-left:0;
+}
+.tabwid_right table{
+  margin-right:0;
+}
+.tabwid td {
+    padding: 0;
+}
+.tabwid a {
+  text-decoration: none;
+}
+.tabwid thead {
+    background-color: transparent;
+}
+.tabwid tfoot {
+    background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+</style><div class="tabwid"><style>.cl-f1d0130a{border-collapse:collapse;}.cl-f1ca0384{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-f1ca03a2{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-f1ca119e{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-f1ca11b2{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-f1ca45a6{width:92.7pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f1ca45c4{width:51.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f1ca45ce{width:55.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f1ca45d8{width:63.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f1ca45d9{width:74.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f1ca45e2{width:56.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f1ca45ec{width:92.7pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f1ca45f6{width:56.5pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f1ca4600{width:51.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f1ca460a{width:55.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f1ca460b{width:74.3pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f1ca4614{width:63.3pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f1ca461e{width:74.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f1ca4628{width:55.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f1ca4629{width:63.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f1ca463c{width:51.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f1ca4646{width:92.7pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f1ca4647{width:56.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f1ca465a{width:63.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f1ca465b{width:56.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f1ca4664{width:55.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f1ca466e{width:92.7pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f1ca4678{width:74.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f1ca4682{width:51.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f1ca468c{width:63.3pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f1ca4696{width:74.3pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f1ca46a0{width:55.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f1ca46a1{width:51.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f1ca46aa{width:92.7pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f1ca46b4{width:56.5pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}caption {color: #777;margin-top: 10px;margin-bottom: 10px;text-align: center;}</style><table class='cl-f1d0130a'><thead><tr style="overflow-wrap:break-word;"><td class="cl-f1ca4696"><p class="cl-f1ca119e"><span class="cl-f1ca0384"></span></p></td><td class="cl-f1ca468c"><p class="cl-f1ca11b2"><span class="cl-f1ca0384">Estimate</span></p></td><td class="cl-f1ca46aa"><p class="cl-f1ca11b2"><span class="cl-f1ca0384">Standard Error</span></p></td><td class="cl-f1ca46a0"><p class="cl-f1ca11b2"><span class="cl-f1ca0384">z value</span></p></td><td class="cl-f1ca46b4"><p class="cl-f1ca11b2"><span class="cl-f1ca0384">Pr(&gt;|z|)</span></p></td><td class="cl-f1ca46a1"><p class="cl-f1ca119e"><span class="cl-f1ca0384">Signif.</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-f1ca45d9"><p class="cl-f1ca119e"><span class="cl-f1ca0384">(Intercept)</span></p></td><td class="cl-f1ca45d8"><p class="cl-f1ca11b2"><span class="cl-f1ca0384">-0.889</span></p></td><td class="cl-f1ca45a6"><p class="cl-f1ca11b2"><span class="cl-f1ca0384">0.295</span></p></td><td class="cl-f1ca45ce"><p class="cl-f1ca11b2"><span class="cl-f1ca0384">-3.011</span></p></td><td class="cl-f1ca45e2"><p class="cl-f1ca11b2"><span class="cl-f1ca0384">0.0026</span></p></td><td class="cl-f1ca45c4"><p class="cl-f1ca119e"><span class="cl-f1ca0384">**</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f1ca460b"><p class="cl-f1ca119e"><span class="cl-f1ca0384">elev_mean</span></p></td><td class="cl-f1ca4614"><p class="cl-f1ca11b2"><span class="cl-f1ca0384">-0.000</span></p></td><td class="cl-f1ca45ec"><p class="cl-f1ca11b2"><span class="cl-f1ca0384">0.000</span></p></td><td class="cl-f1ca460a"><p class="cl-f1ca11b2"><span class="cl-f1ca0384">-1.411</span></p></td><td class="cl-f1ca45f6"><p class="cl-f1ca11b2"><span class="cl-f1ca0384">0.1581</span></p></td><td class="cl-f1ca4600"><p class="cl-f1ca119e"><span class="cl-f1ca0384"></span></p></td></tr></tbody><tfoot><tr style="overflow-wrap:break-word;"><td  colspan="6"class="cl-f1ca461e"><p class="cl-f1ca11b2"><span class="cl-f1ca03a2">Signif. codes: 0 &lt;= '***' &lt; 0.001 &lt; '**' &lt; 0.01 &lt; '*' &lt; 0.05 &lt; '.' &lt; 0.1 &lt; '' &lt; 1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="6"class="cl-f1ca4678"><p class="cl-f1ca119e"><span class="cl-f1ca0384"> </span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="6"class="cl-f1ca4678"><p class="cl-f1ca119e"><span class="cl-f1ca0384">(Dispersion parameter for binomial family taken to be 1)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="6"class="cl-f1ca4678"><p class="cl-f1ca119e"><span class="cl-f1ca0384">Null deviance: 826.8 on 792 degrees of freedom</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="6"class="cl-f1ca4678"><p class="cl-f1ca119e"><span class="cl-f1ca0384">Residual deviance: 824.8 on 791 degrees of freedom</span></p></td></tr></tfoot></table></div></template>
+<div id="d75411dc-f9e5-49d0-b6d6-58d8a6e6368e"></div>
+<script>
+var dest = document.getElementById("d75411dc-f9e5-49d0-b6d6-58d8a6e6368e");
+var template = document.getElementById("1cfaddb5-676b-4f0f-a912-ffd751d43a01");
+var caption = template.content.querySelector("caption");
+if(caption) {
+  caption.style.cssText = "display:block;text-align:center;";
+  var newcapt = document.createElement("p");
+  newcapt.appendChild(caption)
+  dest.parentNode.insertBefore(newcapt, dest.previousSibling);
+}
+var fantome = dest.attachShadow({mode: 'open'});
+var templateContent = template.content;
+fantome.appendChild(templateContent);
+</script>
+
+<pre class="r"><code>visreg::visreg(tp,
+               xlab = &quot;Elevation (m)&quot;, 
+               ylab = &quot;Prob. tau pos. sig.&quot;, 
+               scale = &quot;response&quot;, 
+               ylim=c(0,1))</code></pre>
+<p><img src="figure/computeMannKendall.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.2 (2020-06-22)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Catalina 10.15.3
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] DHARMa_0.3.3.0    ggstatsplot_0.7.2 ggpubr_0.4.0      Kendall_2.2      
+ [5] flextable_0.6.3   sf_0.9-7          here_1.0.1        forcats_0.5.1    
+ [9] stringr_1.4.0     dplyr_1.0.4       purrr_0.3.4       readr_1.4.0      
+[13] tidyr_1.1.2       tibble_3.0.6      ggplot2_3.3.3     tidyverse_1.3.0  
+[17] workflowr_1.6.2  
+
+loaded via a namespace (and not attached):
+  [1] readxl_1.3.1              uuid_0.1-4               
+  [3] pairwiseComparisons_3.1.3 backports_1.2.1          
+  [5] systemfonts_1.0.0         plyr_1.8.6               
+  [7] splines_4.0.2             gmp_0.6-2                
+  [9] TH.data_1.0-10            kSamples_1.2-9           
+ [11] ipmisc_5.0.2              rstantools_2.1.1         
+ [13] digest_0.6.27             SuppDists_1.1-9.5        
+ [15] foreach_1.5.1             htmltools_0.5.1.1        
+ [17] magrittr_2.0.1            memoise_2.0.0            
+ [19] doParallel_1.0.16         paletteer_1.3.0          
+ [21] openxlsx_4.2.3            modelr_0.1.8             
+ [23] officer_0.3.16            sandwich_3.0-0           
+ [25] colorspace_2.0-0          rvest_0.3.6              
+ [27] ggrepel_0.9.1             haven_2.3.1              
+ [29] xfun_0.20                 crayon_1.4.1             
+ [31] jsonlite_1.7.2            lme4_1.1-26              
+ [33] zeallot_0.1.0             iterators_1.0.13         
+ [35] survival_3.2-7            zoo_1.8-8                
+ [37] glue_1.4.2                gtable_0.3.0             
+ [39] emmeans_1.5.4             MatrixModels_0.4-1       
+ [41] statsExpressions_1.0.1    car_3.0-10               
+ [43] Rmpfr_0.8-2               abind_1.4-5              
+ [45] scales_1.1.1              mvtnorm_1.1-1            
+ [47] DBI_1.1.1                 rstatix_0.6.0            
+ [49] PMCMRplus_1.9.0           Rcpp_1.0.6               
+ [51] performance_0.7.2         xtable_1.8-4             
+ [53] units_0.6-7               foreign_0.8-81           
+ [55] httr_1.4.2                ellipsis_0.3.1           
+ [57] farver_2.0.3              pkgconfig_2.0.3          
+ [59] reshape_0.8.8             qgam_1.3.2               
+ [61] multcompView_0.1-8        sass_0.3.1               
+ [63] dbplyr_2.1.0              labeling_0.4.2           
+ [65] effectsize_0.4.4-1        tidyselect_1.1.0         
+ [67] rlang_0.4.10              later_1.1.0.1            
+ [69] ggcorrplot_0.1.3          munsell_0.5.0            
+ [71] cellranger_1.1.0          tools_4.0.2              
+ [73] cachem_1.0.4              cli_2.3.0                
+ [75] generics_0.1.0            broom_0.7.4              
+ [77] evaluate_0.14             fastmap_1.1.0            
+ [79] BWStest_0.2.2             yaml_2.2.1               
+ [81] rematch2_2.1.2            knitr_1.31               
+ [83] fs_1.5.0                  zip_2.1.1                
+ [85] nlme_3.1-152              WRS2_1.1-1               
+ [87] pbapply_1.4-3             mime_0.10                
+ [89] whisker_0.4               xml2_1.3.2               
+ [91] correlation_0.6.1         gap_1.2.2                
+ [93] compiler_4.0.2            rstudioapi_0.13          
+ [95] curl_4.3                  e1071_1.7-4              
+ [97] ggsignif_0.6.0            reprex_1.0.0             
+ [99] statmod_1.4.35            bslib_0.2.4              
+[101] stringi_1.5.3             highr_0.8                
+[103] parameters_0.13.0         gdtools_0.2.3            
+[105] lattice_0.20-41           Matrix_1.3-2             
+[107] visreg_2.7.0              nloptr_1.2.2.2           
+[109] classInt_0.4-3            vctrs_0.3.6              
+[111] pillar_1.4.7              lifecycle_1.0.0          
+[113] mc2d_0.1-18               jquerylib_0.1.3          
+[115] estimability_1.3          data.table_1.13.6        
+[117] insight_0.14.0            patchwork_1.1.1          
+[119] httpuv_1.5.5              R6_2.5.0                 
+[121] promises_1.2.0.1          KernSmooth_2.23-18       
+[123] rio_0.5.16                BayesFactor_0.9.12-4.2   
+[125] codetools_0.2-18          boot_1.3-26              
+[127] MASS_7.3-53               gtools_3.8.2             
+[129] assertthat_0.2.1          rprojroot_2.0.2          
+[131] withr_2.4.1               multcomp_1.4-16          
+[133] mgcv_1.8-33               bayestestR_0.9.0         
+[135] parallel_4.0.2            hms_1.0.0                
+[137] grid_4.0.2                minqa_1.2.4              
+[139] coda_0.19-4               class_7.3-18             
+[141] rmarkdown_2.6.6           carData_3.0-4            
+[143] git2r_0.28.0              shiny_1.6.0              
+[145] lubridate_1.7.10          base64enc_0.1-3          </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
