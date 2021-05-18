@@ -24,22 +24,6 @@ library("broom")
 
 ```{r}
 coplas2019 <- read_csv(here::here("data/coplas2019sn.csv"))
-
-coplas2019 <- coplas2019 %>% 
-  mutate(sp_abrev = recode(sp,"PINUS HALEPENSIS" = "phale",
-                     "PINUS SYLVESTRIS" = "psylv",
-                     "PINUS NIGRA SSP AUSTR." = "pnig_aus",
-                     "PINUS NIGRA SSP SALZM." = "pnig_sal",
-                     "PINUS PINASTER" = "ppinas",
-                     "PINUS PINEA" = "ppinea",
-                     "PINUS UNCINATA" = "punci",
-                     "PINUS CANARIENSIS" = "pcana"),
-         especie = case_when(
-  sp_abrev %in% c("pnig_aus", "pnig_sal") ~ "P. nigra",
-  sp_abrev == "phale" ~ "P. halpensis",
-  sp_abrev == "psylv" ~ "P. sylvestris",
-  sp_abrev == "ppinas" ~ "P. pinaster")) 
-
 ```
 
 
