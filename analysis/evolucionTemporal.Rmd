@@ -1,0 +1,210 @@
+---
+title: "evolucionTemporal"
+author: "Antonio J Perez-Luque"
+date: "2021-05-18"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Evolución temporal por grupo de elevación 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+```{r}
+library("tidyverse")
+library("here")
+library("flextable")
+library("DT")
+library("broom")
+```
+
+
+```{r}
+coplas2019 <- read_csv(here::here("data/coplas2019sn.csv"))
+
+coplas2019 <- coplas2019 %>% 
+  mutate(sp_abrev = recode(sp,"PINUS HALEPENSIS" = "phale",
+                     "PINUS SYLVESTRIS" = "psylv",
+                     "PINUS NIGRA SSP AUSTR." = "pnig_aus",
+                     "PINUS NIGRA SSP SALZM." = "pnig_sal",
+                     "PINUS PINASTER" = "ppinas",
+                     "PINUS PINEA" = "ppinea",
+                     "PINUS UNCINATA" = "punci",
+                     "PINUS CANARIENSIS" = "pcana"),
+         especie = case_when(
+  sp_abrev %in% c("pnig_aus", "pnig_sal") ~ "P. nigra",
+  sp_abrev == "phale" ~ "P. halpensis",
+  sp_abrev == "psylv" ~ "P. sylvestris",
+  sp_abrev == "ppinas" ~ "P. pinaster")) 
+
+```
+
+
+- Exploramos la evolución temporal de la infestación (solo los datos de Sierra Nevada) agrupando por especies de pino y por nivel de elevación. Calculamos los valores medios por nivel de elevación y año. 
+
+
+```{r}
+df <- coplas2019 %>% 
+  dplyr::select(code, elevF, `1993`:`2019`) %>% 
+  pivot_longer(names_to = "year", values_to = "infestacion", `1993`:`2019`) 
+
+df.avg <- 
+  df %>% 
+  group_by(elevF, year) %>% 
+  summarise(mean = mean(infestacion, na.rm=TRUE),
+            sd = sd(infestacion, na.rm=TRUE),
+            se = sd/sqrt(length(infestacion)), 
+            size = length(infestacion)) %>% 
+  mutate(year.date = lubridate::ymd(year, truncated = 2L),
+         elevF_label = recode(elevF, "0verylow" = "< 600 m",
+                           "1low" = "600 - 1200 m",
+                           "2medium" = "1200 - 1700 m",
+                           "3high" = "> 1700 m"))
+
+
+colores_elevacion <- c(
+  "0verylow" = "#d7191c",
+  "1low" = "#fdae61",
+  "2medium" = "#abd9e9",
+  "3high" = "#2c7bb6"
+)
+
+colores_elevacion_label <- c(
+  "< 600 m" = "#d7191c",
+  "600 - 1200 m" = "#fdae61",
+  "1200 - 1700 m" = "#abd9e9",
+  "> 1700 m" = "#2c7bb6"
+)
+
+
+evol_temporal_elevacion <- 
+df.avg %>% 
+  ggplot(aes(x=year.date, y=mean, group=elevF_label, color = elevF_label, fill=elevF_label)) +
+  scale_color_manual(values = colores_elevacion_label) + 
+  theme_bw() +
+  theme(
+    panel.grid = element_blank(),
+    legend.title = element_blank(), 
+    legend.position = c(0.5,.9), 
+    legend.background = element_blank()) + 
+  scale_x_date(date_breaks = "2 years", date_labels = "%Y") +
+  xlab("Year") + ylab("Mean defoliation") + ylim(0, NA) +
+  geom_point(size=1.5) + 
+  geom_line() +
+  geom_errorbar(aes(ymin=mean - se, ymax=mean + se), width = .1) +
+  guides(colour = guide_legend(nrow = 2))
+```
+
+```{r, fig.width=7, fig.height=3, echo=FALSE}
+evol_temporal_elevacion
+ggsave(filename = here::here("output/evolucion_temporal_elevacion.pdf"), 
+       width = 20, height = 7, units = "cm")
+dev.off()
+```
+
+
+## Evolución temporal por especie
+Número de parcelas por especie 
+```{r}
+DT::datatable(coplas2019 %>% group_by(sp_abrev) %>% count()) 
+```
+
+- Seleccionamos *P. nigra*, *P. halpensis*, *P. sylvestris*, *P. pinaster*
+
+```{r}
+dfspraw <- coplas2019 %>% filter(especie %in% c("P. nigra", "P. halpensis", "P. sylvestris","P. pinaster")) 
+
+dfsp <- dfspraw %>% 
+  dplyr::select(code, especie, elev_mean, `1993`:`2019`) %>% 
+  pivot_longer(names_to = "year", values_to = "infestacion", `1993`:`2019`) 
+
+dfsp.avg <- 
+  dfsp %>% 
+  group_by(especie, year) %>% 
+  summarise(mean = mean(infestacion, na.rm=TRUE),
+            sd = sd(infestacion, na.rm=TRUE),
+            se = sd/sqrt(length(infestacion)), 
+            size = length(infestacion)) %>% 
+  mutate(year.date = lubridate::ymd(year, truncated = 2L)) 
+
+colores_pinos <- c("P. halpensis" = "#809c13", 
+                   "P. nigra" = "#45492a", 
+                   "P. pinaster" = "gray", 
+                   "P. sylvestris" = "#ffa64d")
+
+evol_temporal_especies <- 
+  dfsp.avg %>% 
+  ggplot(aes(x=year.date, y=mean, group=especie, color = especie, fill=especie)) +
+  scale_color_manual(values = colores_pinos) +
+  theme_bw() +
+  theme(
+    panel.grid = element_blank(), 
+    legend.title = element_blank(), 
+    legend.position = c(0.5,.9), 
+    legend.background = element_blank()
+  ) + 
+  scale_x_date(date_breaks = "2 years", date_labels = "%Y") +
+  xlab("Year") + ylab("Mean defoliation") + ylim(0, NA) +
+    geom_point(size=1.5) + 
+  geom_line() +
+  geom_errorbar(aes(ymin=mean - se, ymax=mean + se), width = .1) +
+  guides(colour = guide_legend(nrow = 2))
+```
+
+```{r, fig.width=7, fig.height=3, echo=FALSE}
+ggsave(filename = here::here("output/evolucion_temporal_especies.pdf"), 
+       width = 20, height = 8, units = "cm")
+print(evol_temporal_especies)
+dev.off()
+```
+
+
+### Tendencia últimos años
+
+- Explorar la tendendia desde 2005 (solo fines exploratorios). Sabemos que este modelo estadísticamte es inválido. 
+
+```{r, fig.width=7, fig.height=3, echo=FALSE}
+df2005 <- dfsp.avg %>% filter(year >2005) %>% 
+  mutate(year = as.numeric(year))
+
+evol_temporal_reg2005 <- 
+  evol_temporal_especies +
+  geom_line(data= df2005,
+    stat = "smooth", 
+    method = "lm", 
+    alpha = .5, 
+    size = 1.5
+  ) 
+
+ggsave(filename = here::here("output/evolucion_temporal_reg2005.pdf"), 
+       width = 20, height = 8, units = "cm")
+print(evol_temporal_reg2005)
+dev.off()
+```
+
+
+```{r}
+ft1 <- do(df2005 %>% group_by(especie), 
+   glance(lm(mean~year, data=.))) %>%
+  dplyr::select(especie, r.squared, p.value) %>% 
+  mutate_if(is.numeric, round, 4) %>% 
+  flextable() 
+ft1 
+```
+
+```{r}
+ft2 <- do(df2005 %>% group_by(especie), 
+   tidy(lm(mean~year, data=.))) %>% 
+  mutate_if(is.numeric, round, 3) %>% 
+  flextable() 
+ft2
+```
+
+```{r, eval=FALSE, echo=FALSE}
+save_as_docx(`regression` = ft1,
+             `coefficients` = ft2, path=here::here("output/trend_2005.docx"))
+```
+
