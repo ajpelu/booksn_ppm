@@ -88,11 +88,11 @@ coplas2019 <- read_csv(here::here("data/coplas2019.csv"))
   
 df_elev <- df %>% 
   left_join(coplas2019) %>% 
-  dplyr::select(code, buffer_25:buffer_10, sp, elevF)
+  dplyr::select(code, buffer_25:buffer_10, sp, elevF,  sp_abrev, especie)
 
 df_elevb <- dfb %>% 
   left_join(coplas2019) %>% 
-  dplyr::select(code, buffer_25:buffer_10, sp, elevF)
+  dplyr::select(code, buffer_25:buffer_10, sp, elevF,  sp_abrev, especie)
 
 n_parcelas <- df_elev %>% 
   group_by(elevF) %>%
