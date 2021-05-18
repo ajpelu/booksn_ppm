@@ -1,0 +1,211 @@
+---
+title: "computeDisparity"
+author: "Antonio J Perez-Luque"
+date: "2021-05-18"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+bibliography: references.bib
+cls: ecology.csl
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+```{r}
+library("tidyverse")
+library("here")
+library("flextable")
+library("ggpubr")
+library("ggstatsplot")
+library("DHARMa")
+library("betareg")
+```
+
+## Calcular la Disparidad y Variabilidad proporcional. 
+Vamos a utilizar unos índices que nos permiten estimar la variabilidad temporal de las series temporales. En concreto: 
+
+- ***D = disparity index***, que habla de las diferencias entre pares consecutivos (en nuestro caso años)
+- ***PV = proportional variability***, informa acerca de la diferencia proporcional entre todos los años en una misma serie temporal. 
+
+Mas información sobre estos índices:  [@FernandezMartinezetal2018ConsecutiveDisparity; @FernandezMartinezPenuelas2021MeasuringTemporal; @HeathBorowski2013QuantifyingProportional]
+
+
+- A partir de estos índices, la idea es identificar el comportamiento de la serie temporal y ver donde están ocurriendo mas cambios en el nivel de infestación
+
+
+```{r}
+coplas2019 <- read_csv(here::here("data/coplas2019sn.csv"))
+
+
+df <- coplas2019 %>% 
+  filter(!is.na(especie)) %>% 
+  dplyr::select(code, especie, `1993`:`2019`) %>% 
+  pivot_longer(names_to = "year", values_to = "infestacion", `1993`:`2019`) 
+
+# disparity index 
+disparity <- function(x, k) { 
+  # x es el vector con la serie temporal 
+  # k es una cte que se añade para evitar problemas de 
+  # indeterminación
+  
+  x <- x[!is.na(x)] # remove NA 
+  n <- length(x) # length time series 
+  f <- NA
+  for (i in (1:(n-1))){ 
+    f[i] = abs(log((x[i+1] + k) / (x[i] + k)))} 
+  
+  D <- sum(f) / (n-1) 
+  return(D)
+  }
+
+# Proportional Variability See https://doi.org/10.1371/journal.pone.0084074 
+pvIndex <- function (x){
+  x <- x[!is.na(x)] # remove NA 
+  n <- length(x) # length time series 
+  pairs <- combn(x,2)
+  min.z <- apply(pairs, MARGIN = 2, min)
+  max.z <- apply(pairs, MARGIN = 2, max)
+  z <- 1-(min.z/max.z)
+  z[is.nan(z)] <- 1 # this solve problems of NaN
+  PV <- 2*sum(z) / (n*(n-1))
+  return(PV)
+}
+```
+
+```{r}
+parcelas <- unique(df$code)
+
+df.disparity <- c() 
+
+for (i in 1:length(parcelas)) { 
+  
+  aux <- df %>% filter(code == parcelas[i])
+  
+  D_parcela <- disparity(aux$infestacion, k=.1)
+  PV_parcela <- pvIndex(aux$infestacion)
+  
+  out <- data.frame(code = parcelas[i], 
+                    D = D_parcela,
+                    PV = PV_parcela)
+  
+  df.disparity <- rbind(df.disparity, out)
+}
+  
+
+dispar <- coplas2019 %>% 
+  dplyr::select(
+    code, elev_mean, especie, sp_abrev) %>% 
+  inner_join(df.disparity) 
+
+```
+
+### Disparidad 
+
+```{r, echo=FALSE}
+colores_pinos <- c("P. halpensis" = "#809c13", 
+                   "P. nigra" = "#45492a", 
+                   "P. pinaster" = "gray", 
+                   "P. sylvestris" = "#ffa64d")
+
+comparisons <- list(
+  c("0verylow", "1low"), c("0verylow", "2medium"), c("0verylow", "3high"),
+  c("1low", "2medium"), c("1low", "3high"),  c("2medium","3high")
+)
+
+comparisons_sp <- list(
+c("P. halpensis", "P. sylvestris"),
+c("P. halpensis", "P. nigra"),
+c("P. halpensis", "P. pinaster"),
+c("P. sylvestris", "P. nigra"), 
+c("P. sylvestris", "P. pinaster"),
+c("P. nigra","P. pinaster"))
+```
+
+
+```{r}
+plot_comparaD <- ggstatsplot::ggbetweenstats(
+  data = dispar,
+  x = especie,
+  y = D,
+  ylab = "Disparity") +
+  ggplot2::scale_color_manual(values = colores_pinos)
+```
+
+```{r, fig.width=6, fig.height=6, echo=FALSE}
+ggsave(filename = here::here("output/comparaD_especies.pdf"), 
+       width = 16, height = 14, units = "cm")
+print(plot_comparaD)
+dev.off()
+```
+
+
+```{r, eval=FALSE, echo=FALSE}
+ftd <- compare_means(D ~ especie, dispar) %>%
+    mutate_if(is.numeric, round, 3) %>% 
+  flextable() %>% autofit()
+ftd
+```
+
+Tal como observamos en el gráfico anterior, vemos que existe una mayor disparidad en las parcelas de *P. sylvestris* que en el resto. Esto, parece indicar, que en esta parcelas es donde estamos observando mayores diferencias entre años ("dientes de sierra más grandes"). Las parcelas de *P. halepensis* son las que menos disparidad presentan. En las parcelas de 
+
+### Proportional Varibility 
+
+```{r}
+plot_comparaPV <- ggstatsplot::ggbetweenstats(
+  data = dispar,
+  x = especie,
+  y = PV,
+  ylab = "Proportional Variability") +
+  ggplot2::scale_color_manual(values = colores_pinos)
+```
+
+```{r, fig.width=6, fig.height=6, echo=FALSE}
+ggsave(filename = here::here("output/comparaPV_especies.pdf"), 
+       width = 16, height = 14, units = "cm")
+print(plot_comparaPV)
+dev.off()
+```
+
+No observamos diferencias entre las especies para el indice PV, esto es, a lo largo de la serie temporal la variabilidad no es diferente entre especies. 
+
+### Modelización 
+
+- Realizamos un modelo de la PV y la elevación.
+- Utilizamos la regresion beta 
+
+```{r}
+# Corrección para que no llegue al 1 ni al 0. See 
+# https://stackoverflow.com/questions/26385617/proportion-modeling-betareg-errors/36420932
+n.obs <- sum(!is.na(dispar$PV))
+dispar$PVm <- ((dispar$PV * (n.obs -1)) + 0.5)/n.obs
+
+model.pv <- betareg(PVm ~ elev_mean, data=dispar)
+summary(model.pv)
+```
+
+- Aunque parece haber una relación, el modelo es muy poco explicativo (insginifcante, diría)
+
+
+```{r}
+ggplot(dispar, aes(x=elev_mean, y=PVm)) +
+  geom_point(size=1, color="gray") +
+  geom_line(aes(y = predict(model.pv, dispar)), color = "blue") +
+  theme_bw() +
+  theme(panel.grid = element_blank()) +
+  xlab("Elevacion") + 
+  ylab("Proportional Variability")
+```
+
+
+
+
+
+
+
+ 
+
+
+
+

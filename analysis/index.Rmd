@@ -20,3 +20,8 @@ editor_options:
 
 ## Análisis de Mann-Kendall
 - Analizmos las [tendencias temporales](computeMannKendall.html) para cada parcela utilizando el test no paramétrico de Mann-Kendall.
+
+## Análisis de Disparidad de las series de datos 
+- Disparidad entre los valores de infestación entre años para cada parcela
+- Variabilidad para cada serie de datos (cada parcela)
+- Resultados [aquí](computeDisparity.html)
