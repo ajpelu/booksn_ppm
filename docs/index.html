@@ -325,16 +325,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomajpelubooksnppmtree54923d4eda21fabbe857a53183817401efc04edatargetblank54923d4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/ajpelu/booksn_ppm/tree/54923d4eda21fabbe857a53183817401efc04eda" target="_blank">54923d4</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomajpelubooksnppmtreee061f4ed548b759d28b05aa517acb9c88be9fdbatargetblanke061f4ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/ajpelu/booksn_ppm/tree/e061f4ed548b759d28b05aa517acb9c88be9fdba" target="_blank">e061f4e</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomajpelubooksnppmtree54923d4eda21fabbe857a53183817401efc04edatargetblank54923d4a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomajpelubooksnppmtreee061f4ed548b759d28b05aa517acb9c88be9fdbatargetblanke061f4ea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/ajpelu/booksn_ppm/tree/54923d4eda21fabbe857a53183817401efc04eda" target="_blank">54923d4</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/ajpelu/booksn_ppm/tree/e061f4ed548b759d28b05aa517acb9c88be9fdba" target="_blank">e061f4e</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -348,9 +348,16 @@ Ignored files:
 
 Untracked files:
     Untracked:  analysis/dataNAO.Rmd
-    Untracked:  output/evolucion_temporal_elevacion.pdf
-    Untracked:  output/evolucion_temporal_especies.pdf
-    Untracked:  output/evolucion_temporal_reg2005.pdf
+    Untracked:  output/comparaMK_especies.pdf
+    Untracked:  output/comparaMKsig_especies.pdf
+    Untracked:  output/tau_elev.pdf
+
+Unstaged changes:
+    Modified:   data/coplas2019.csv
+    Modified:   data/coplas2019sn.csv
+    Modified:   output/evolucion_temporal_elevacion.pdf
+    Modified:   output/evolucion_temporal_especies.pdf
+    Modified:   output/evolucion_temporal_reg2005.pdf
 
 </code></pre>
 <p>
@@ -389,6 +396,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/ajpelu/booksn_ppm/blob/e061f4ed548b759d28b05aa517acb9c88be9fdba/analysis/index.Rmd" target="_blank">e061f4e</a>
+</td>
+<td>
+Antonio J Perez-Luque
+</td>
+<td>
+2021-05-18
+</td>
+<td>
+update index
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/ajpelu/booksn_ppm/afdfe938ca1a7e0611ec4bef06f645c2369e8bd0/docs/index.html" target="_blank">afdfe93</a>
+</td>
+<td>
+Antonio J Perez-Luque
+</td>
+<td>
+2021-05-18
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -576,13 +617,15 @@ Start workflowr project.
 <div id="exploración-del-patrón-temporal" class="section level2">
 <h2>Exploración del patrón temporal</h2>
 <ul>
-<li><p>Vamos a explorar el patrón temporal de los niveles de infestación medios por año, agrupados por grupo de elevación y por especie.</p></li>
-<li><p>Nos quedamos con la agrupación por especie. Seleccionamos 4 especies (<em>P. nigra</em>, <em>P. halpensis</em>, <em>P. sylvestris</em>, <em>P. pinaster</em>)</p></li>
-<li><p>Los resultados pueden verse <a href="evolucionTemporal.html">aquí</a> y los gráficos:</p>
+<li>Vamos a explorar el patrón temporal de los niveles de infestación medios por año, agrupados por grupo de elevación y por especie.</li>
+<li>Nos quedamos con la agrupación por especie. Seleccionamos 4 especies (<em>P. nigra</em>, <em>P. halpensis</em>, <em>P. sylvestris</em>, <em>P. pinaster</em>)</li>
+<li>Los resultados pueden verse <a href="evolucionTemporal.html">aquí</a></li>
+</ul>
+</div>
+<div id="análisis-de-mann-kendall" class="section level2">
+<h2>Análisis de Mann-Kendall</h2>
 <ul>
-<li><a href="/output/evolucion_temporal_especies.pdf">Evolución temporal infestación <em>vs</em> especie</a></li>
-<li>Evolución temporal infestación <em>vs</em> elevación (categórica)</li>
-</ul></li>
+<li>Analizmos las <a href="computeMannKendall.html">tendencias temporales</a> para cada parcela utilizando el test no paramétrico de Mann-Kendall.</li>
 </ul>
 </div>
 
