@@ -1,7 +1,7 @@
 name: "booksn_ppm"
 output_dir: ../docs
 navbar:
-  title: "booksn_ppm"
+  title: "Analysis of PPM infestation data for Sierra Nevada"
   left:
   - text: Home
     href: index.html
