@@ -6,6 +6,8 @@ output:
     toc: false
 editor_options:
   chunk_output_type: console
+bibliography: references.bib
+cls: ecology.csl
 ---
 
 ## Preparación de datos 
@@ -25,3 +27,12 @@ editor_options:
 - Disparidad entre los valores de infestación entre años para cada parcela
 - Variabilidad para cada serie de datos (cada parcela)
 - Resultados [aquí](computeDisparity.html)
+- Mas información sobre estos índices:  [@FernandezMartinezetal2018ConsecutiveDisparity; @FernandezMartinezPenuelas2021MeasuringTemporal; @HeathBorowski2013QuantifyingProportional]
+
+
+## Relación nivel de infestación con la NAO
+
+- Re-visitamos el trabajo de @Hodaretal2012ClimateChange, y volvemos a explorar la relación entre la NAO y el % de parcelas con nivel de infestacion >= 3. 
+- Análisis exploratorio [aquí](dataNAO.html)  
+
+# Referencias 
