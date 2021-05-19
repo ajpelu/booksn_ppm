@@ -264,7 +264,7 @@ coplas_sp <- coplas_sp %>%
                      "PINUS CANARIENSIS" = "pcana"),
          especie = case_when(
   sp_abrev %in% c("pnig_aus", "pnig_sal") ~ "P. nigra",
-  sp_abrev == "phale" ~ "P. halpensis",
+  sp_abrev == "phale" ~ "P. halepensis",
   sp_abrev == "psylv" ~ "P. sylvestris",
   sp_abrev == "ppinas" ~ "P. pinaster", 
   sp_abrev == "ppinea" ~ "P. pinea")) 
