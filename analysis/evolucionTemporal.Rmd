@@ -96,10 +96,10 @@ Número de parcelas por especie
 DT::datatable(coplas2019 %>% group_by(sp_abrev) %>% count()) 
 ```
 
-- Seleccionamos *P. nigra*, *P. halpensis*, *P. sylvestris*, *P. pinaster*
+- Seleccionamos *P. nigra*, *P. halepensis*, *P. sylvestris*, *P. pinaster*
 
 ```{r}
-dfspraw <- coplas2019 %>% filter(especie %in% c("P. nigra", "P. halpensis", "P. sylvestris","P. pinaster")) 
+dfspraw <- coplas2019 %>% filter(especie %in% c("P. nigra", "P. halepensis", "P. sylvestris","P. pinaster")) 
 
 dfsp <- dfspraw %>% 
   dplyr::select(code, especie, elev_mean, `1993`:`2019`) %>% 
@@ -114,7 +114,7 @@ dfsp.avg <-
             size = length(infestacion)) %>% 
   mutate(year.date = lubridate::ymd(year, truncated = 2L)) 
 
-colores_pinos <- c("P. halpensis" = "#809c13", 
+colores_pinos <- c("P. halepensis" = "#809c13", 
                    "P. nigra" = "#45492a", 
                    "P. pinaster" = "gray", 
                    "P. sylvestris" = "#ffa64d")
@@ -138,7 +138,6 @@ evol_temporal_especies <-
   guides(colour = guide_legend(nrow = 2))
 ```
 
-```{r, fig.width=7, fig.height=3, echo=FALSE}
 ggsave(filename = here::here("output/evolucion_temporal_especies.pdf"), 
        width = 20, height = 8, units = "cm")
 print(evol_temporal_especies)

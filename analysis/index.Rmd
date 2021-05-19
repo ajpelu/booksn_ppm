@@ -17,7 +17,7 @@ cls: ecology.csl
 
 ## Exploración del patrón temporal 
 - Vamos a explorar el patrón temporal de los niveles de infestación medios por año, agrupados por grupo de elevación y por especie. 
-- Nos quedamos con la agrupación por especie. Seleccionamos 4 especies (*P. nigra*, *P. halpensis*, *P. sylvestris*, *P. pinaster*)
+- Nos quedamos con la agrupación por especie. Seleccionamos 4 especies (*P. nigra*, *P. halepensis*, *P. sylvestris*, *P. pinaster*)
 - Los resultados pueden verse [aquí](evolucionTemporal.html)
 
 ## Análisis de Mann-Kendall

@@ -36,7 +36,8 @@ Mas información sobre estos índices:  [@FernandezMartinezetal2018ConsecutiveDi
 
 
 ```{r}
-coplas2019 <- read_csv(here::here("data/coplas2019sn.csv"))
+coplas2019 <- read_csv(here::here("data/coplas2019sn.csv")) %>% 
+    filter(sp_abrev != "ppinea") 
 
 
 df <- coplas2019 %>% 
@@ -104,7 +105,7 @@ dispar <- coplas2019 %>%
 ### Disparidad 
 
 ```{r, echo=FALSE}
-colores_pinos <- c("P. halpensis" = "#809c13", 
+colores_pinos <- c("P. halepensis" = "#809c13", 
                    "P. nigra" = "#45492a", 
                    "P. pinaster" = "gray", 
                    "P. sylvestris" = "#ffa64d")
@@ -115,9 +116,9 @@ comparisons <- list(
 )
 
 comparisons_sp <- list(
-c("P. halpensis", "P. sylvestris"),
-c("P. halpensis", "P. nigra"),
-c("P. halpensis", "P. pinaster"),
+c("P. halepensis", "P. sylvestris"),
+c("P. halepensis", "P. nigra"),
+c("P. halepensis", "P. pinaster"),
 c("P. sylvestris", "P. nigra"), 
 c("P. sylvestris", "P. pinaster"),
 c("P. nigra","P. pinaster"))
