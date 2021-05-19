@@ -266,7 +266,8 @@ coplas_sp <- coplas_sp %>%
   sp_abrev %in% c("pnig_aus", "pnig_sal") ~ "P. nigra",
   sp_abrev == "phale" ~ "P. halpensis",
   sp_abrev == "psylv" ~ "P. sylvestris",
-  sp_abrev == "ppinas" ~ "P. pinaster")) 
+  sp_abrev == "ppinas" ~ "P. pinaster", 
+  sp_abrev == "ppinea" ~ "P. pinea")) 
 
 
 write_csv(coplas_sp, here::here("data/coplas2019.csv"))
