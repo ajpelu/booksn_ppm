@@ -138,6 +138,7 @@ evol_temporal_especies <-
   guides(colour = guide_legend(nrow = 2))
 ```
 
+```{r}
 ggsave(filename = here::here("output/evolucion_temporal_especies.pdf"), 
        width = 20, height = 8, units = "cm")
 print(evol_temporal_especies)
