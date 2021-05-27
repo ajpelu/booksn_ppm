@@ -1,0 +1,207 @@
+---
+title: "dataNAO-SierraNevada"
+author: "Antonio J Perez-Luque"
+date: "2021-05-17"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+bibliography: references.bib
+cls: ecology.csl
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+```{r}
+library("tidyverse")
+library("here")
+library("flextable")
+library("DT")
+library("ggpubr")
+```
+
+# Objetivo 
+
+El objetivo es generar un dataset con los datos de la NAO y los datos de infestación. 
+- Utilizmaos el índice NAO de invierno (**Hurrell’s winter NAO**) cuyos datos podemos obtener en el [National Center for Atmospheric Research](https://climatedataguide.ucar.edu/climate-data/hurrell-north-atlantic-oscillation-nao-index-station-based). Descargamos los datos y los guardamos en `data/nao_station_djfm.txt` 
+
+- Genero el dataset de NAO (con lag 1, 2, y 3) desde 1989 en adelante 
+
+```{r}
+nao <- read_csv(here::here("data/nao_station_djfm.csv"))
+
+nao <- nao %>% filter(year > 1988) %>% 
+  mutate(nao1 = lag(nao, n=1),
+         nao2 = lag(nao, n=2),
+         nao3 = lag(nao, n=3))
+  
+```
+
+
+- Siguiendo la aproximación de @Hodaretal2012ClimateChange vamos a calcular el porcentaje de parcleas con infestación >= 3 para cada año. 
+
+- Leer los datos para **Sierra Nevada** 
+- Agrupar en high infestacion (infestacion >= 3) y low infestacion (infestacion < 3)
+- Computar valor para cada año 
+
+- Filtramos para las especies: pinaster, halepensis, sylvetris, nigra 
+
+
+```{r}
+coplas2019 <- read_csv(here::here("data/coplas2019sn.csv")) 
+
+df <- coplas2019 %>% 
+  filter(!is.na(sp)) %>% 
+  dplyr::select(code, especie, `1993`:`2019`) %>% 
+  pivot_longer(`1993`:`2019`, names_to = "year", values_to = "infesta") %>% 
+  mutate(type = case_when(
+    infesta >= 3 ~ "high",
+    TRUE ~ "low" 
+  )) %>% 
+  mutate(year = as.numeric(year))
+
+
+genera.dfnao <- function(x) {
+  
+  n_teorico <- x %>% group_by(year) %>% summarise(ntotal = length(infesta))
+  n_real <- x %>% 
+    filter(!is.na(infesta)) %>% 
+    group_by(year) %>% 
+    summarise(nreal = length(infesta)) %>% 
+    mutate(year = as.numeric(year))  
+  
+  ppm <- x %>% 
+    filter(!is.na(infesta)) %>% 
+    group_by(year, type) %>% 
+    summarise(n = n()) %>% 
+    group_by(year) %>% 
+    mutate(pct = n /sum(n, na.rm = TRUE)*100)
+  
+  ppm_year <- ppm %>% 
+    pivot_wider(names_from = type,
+                values_from = c(n, pct))
+  
+  out <- ppm_year %>% 
+    left_join(n_real) %>% 
+    left_join(n_teorico)
+  
+  return(out)
+}
+  
+  
+nao_all  <- genera.dfnao(df) %>% 
+  mutate(especie = "All")
+
+nao_halepensis <- df %>% 
+  filter(especie == "P. halepensis") %>% 
+  genera.dfnao() %>% 
+  mutate(especie = "P. halepensis")
+
+nao_pinaster <- df %>% 
+  filter(especie == "P. pinaster") %>% 
+  genera.dfnao() %>% 
+  mutate(especie = "P. pinaster")
+
+nao_nigra <- df %>% 
+  filter(especie == "P. nigra") %>% 
+  genera.dfnao() %>% 
+  mutate(especie = "P. nigra")
+
+nao_sylvestris <- df %>% 
+  filter(especie == "P. sylvestris") %>% 
+  genera.dfnao() %>% 
+  mutate(especie = "P. sylvestris")
+
+
+dfnaos <- bind_rows(nao_all, nao_halepensis, nao_nigra, 
+                    nao_pinaster, nao_sylvestris) %>% 
+  mutate(pct_high = replace_na(pct_high, 0))
+
+nao_ppm <- nao %>% left_join(dfnaos)
+
+```
+
+- Repetir figura 1 del trabajo de @Hodaretal2012ClimateChange, ampliando la serie hasta 2019 
+
+```{r}
+df_plot <- nao_ppm %>%  
+  filter(!is.na(especie)) %>% 
+  dplyr::select(year, nao:nao3, pct_high, especie) %>% 
+  pivot_longer(nao:nao3, names_to = "nao_index") 
+
+pearson_plot <- df_plot %>% 
+  ggplot(aes(x=value, y=pct_high)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se=FALSE, size=.4, color="black") +
+  theme_bw() +
+  ylim(c(0,40)) + 
+  xlab("") + 
+  ylab("Percent of stands with defoliation >= 3") + 
+  theme(panel.grid = element_blank(),
+        strip.background = element_blank()) +
+  stat_cor(aes(label = ..r.label..), color = "black", geom = "text") + facet_grid(fct_relevel(especie,"All", "P. pinea", 
+         "P. pinaster", "P. halepensis",
+         "P. nigra", "P. sylvestris")~nao_index, 
+         labeller = labeller(nao_index = toupper))
+```
+
+
+```{r, fig.width=8, fig.height=8, echo=FALSE}
+ggsave(filename = here::here("output/pearson_NAO_especies_sn.pdf"), 
+       width =20, height = 20, units = "cm")
+print(pearson_plot)
+dev.off()
+```
+
+
+### Explorar patron temporal 
+```{r}
+df_plot_ts <- nao_ppm %>% 
+  dplyr::select(year, nao, pct_high, especie) 
+
+df_plot_ts$especie <- factor(df_plot_ts$especie, 
+                             levels = c("NA","All","P. sylvestris", "P. nigra",
+                                         "P. pinaster","P. halepensis"))
+
+ylim.prim <- c(0,40)
+ylim.sec <- c(-5,5)
+b <- diff(ylim.prim)/diff(ylim.sec)
+a <-  ylim.prim[1] - b*ylim.sec[1]
+
+
+patron_nao_ppm <- df_plot_ts %>%  
+  filter(!is.na(especie)) %>% 
+  filter(especie != "All") %>%
+  ggplot(aes(x=year, y=pct_high)) + 
+  geom_hline(yintercept = a, color="gray") + 
+  geom_point() + 
+  facet_wrap(~especie, nrow=4) + 
+  geom_line(stat="identity") + 
+  geom_line(data = (
+    df_plot_ts %>% select(year, nao)
+  ), aes(x=year, y= a + nao*b), color="red") +
+    scale_y_continuous(sec.axis = sec_axis(name="NAO", ~(.-a)/b)) + 
+
+  scale_x_continuous(limits=c(1989,2019),
+                     breaks = seq(1989,2019, by=1)) +
+    theme_bw() + 
+  theme(panel.grid = element_blank(), 
+        axis.text.x = element_text(size=8, angle=90, vjust = 0.5),
+        axis.title.y.right = element_text(color = "red"),
+        strip.background = element_blank()) +
+   xlab("") + 
+  ylab("Percent of stands with defoliation >= 3") 
+```
+
+```{r, fig.width=4.5, fig.height=6, echo=FALSE}
+ggsave(filename = here::here("output/patron_nao_ppm_sn.pdf"), 
+       width =13, height = 18, units = "cm")
+print(patron_nao_ppm)
+dev.off()
+```
+
+
+# Referencias 
+
