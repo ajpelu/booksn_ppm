@@ -316,7 +316,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-05-19
+<strong>Last updated:</strong> 2021-05-27
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -347,16 +347,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomajpelubooksnppmtree8718616f552a2fa899ee056f25ed8a99dc5fe9e5targetblank8718616a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/ajpelu/booksn_ppm/tree/8718616f552a2fa899ee056f25ed8a99dc5fe9e5" target="_blank">8718616</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomajpelubooksnppmtree78c1445b840a272889ba4a3096a25ce698fe4a07targetblank78c1445a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/ajpelu/booksn_ppm/tree/78c1445b840a272889ba4a3096a25ce698fe4a07" target="_blank">78c1445</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomajpelubooksnppmtree8718616f552a2fa899ee056f25ed8a99dc5fe9e5targetblank8718616a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomajpelubooksnppmtree78c1445b840a272889ba4a3096a25ce698fe4a07targetblank78c1445a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/ajpelu/booksn_ppm/tree/8718616f552a2fa899ee056f25ed8a99dc5fe9e5" target="_blank">8718616</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/ajpelu/booksn_ppm/tree/78c1445b840a272889ba4a3096a25ce698fe4a07" target="_blank">78c1445</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -371,6 +371,8 @@ Ignored files:
 Untracked files:
     Untracked:  glmulti.analysis.modgen.back
     Untracked:  glmulti.analysis.mods.back
+    Untracked:  output/patron_nao_ppm_sn.pdf
+    Untracked:  output/pearson_NAO_especies_sn.pdf
 
 Unstaged changes:
     Modified:   data/coplas2019sn.csv
@@ -379,6 +381,7 @@ Unstaged changes:
     Modified:   output/comparaMKsig_especies.pdf
     Modified:   output/comparaPV_especies.pdf
     Modified:   output/evolucion_temporal_elevacion.pdf
+    Modified:   output/evolucion_temporal_especies.pdf
     Modified:   output/evolucion_temporal_reg2005.pdf
     Modified:   output/patron_nao_ppm.pdf
     Modified:   output/pearson_NAO_especies.pdf
@@ -421,6 +424,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/ajpelu/booksn_ppm/blob/78c1445b840a272889ba4a3096a25ce698fe4a07/analysis/index.Rmd" target="_blank">78c1445</a>
+</td>
+<td>
+Antonio J Perez-Luque
+</td>
+<td>
+2021-05-27
+</td>
+<td>
+update plots
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/ajpelu/booksn_ppm/53bcfcc7d41ac6518e9ad14feb180c32110fa96c/docs/index.html" target="_blank">53bcfcc</a>
+</td>
+<td>
+Antonio J Perez-Luque
+</td>
+<td>
+2021-05-19
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -785,7 +822,9 @@ Start workflowr project.
 <h2>Relación nivel de infestación con la NAO</h2>
 <ul>
 <li>Re-visitamos el trabajo de <span class="citation">Hódar, Zamora, and Cayuela (2012)</span>, y volvemos a explorar la relación entre la NAO y el % de parcelas con nivel de infestacion &gt;= 3.</li>
-<li>Análisis exploratorio <a href="dataNAO.html">aquí</a></li>
+<li>Análisis exploratorio <a href="dataNAO.html">aquí</a><br />
+</li>
+<li>Análisis NAO con solo los datos de <a href="dataNAO-SierraNevada.html"><strong>Sierra Nevada</strong></a></li>
 </ul>
 </div>
 <div id="referencias" class="section level1 unnumbered">
