@@ -156,7 +156,6 @@ mksig_plot <- ggplot(mkdf, aes(x=especie, y= mk_tau, shape=significant, fill=esp
              aes(x=especie, y=0.9, label=
                    paste0(pct_tot, " %")), 
              fill="white", color = "black") 
-
 ```
 
 ```{r, fig.height=4, fig.width=6}

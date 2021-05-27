@@ -34,5 +34,6 @@ cls: ecology.csl
 
 - Re-visitamos el trabajo de @Hodaretal2012ClimateChange, y volvemos a explorar la relación entre la NAO y el % de parcelas con nivel de infestacion >= 3. 
 - Análisis exploratorio [aquí](dataNAO.html)  
+- Análisis NAO con solo los datos de [**Sierra Nevada**](dataNAO-SierraNevada.html)
 
 # Referencias 

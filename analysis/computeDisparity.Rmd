@@ -100,6 +100,10 @@ dispar <- coplas2019 %>%
     code, elev_mean, especie, sp_abrev) %>% 
   inner_join(df.disparity) 
 
+dispar$especie <- fct_relevel(dispar$especie,  
+         "P. halepensis", "P. pinaster",
+         "P. nigra", "P. sylvestris")
+
 ```
 
 ### Disparidad 
