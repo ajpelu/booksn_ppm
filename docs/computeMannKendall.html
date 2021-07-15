@@ -360,7 +360,7 @@ div.tocify {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -369,7 +369,7 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -381,7 +381,7 @@ div.tocify {
 <strong>Last updated:</strong> 2021-07-15
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>booksn_ppm/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -397,12 +397,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
 </div>
 </div>
 </div>
@@ -469,16 +469,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomajpelubooksnppmtree460935fdfe0fe3ce3f5ef8f76129ff10b5bdca74targetblank460935fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/ajpelu/booksn_ppm/tree/460935fdfe0fe3ce3f5ef8f76129ff10b5bdca74" target="_blank">460935f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomajpelubooksnppmtree1ddb83d72c601126fc29e6da9a252608e630840etargetblank1ddb83da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/ajpelu/booksn_ppm/tree/1ddb83d72c601126fc29e6da9a252608e630840e" target="_blank">1ddb83d</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomajpelubooksnppmtree460935fdfe0fe3ce3f5ef8f76129ff10b5bdca74targetblank460935fa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomajpelubooksnppmtree1ddb83d72c601126fc29e6da9a252608e630840etargetblank1ddb83da" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/ajpelu/booksn_ppm/tree/460935fdfe0fe3ce3f5ef8f76129ff10b5bdca74" target="_blank">460935f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/ajpelu/booksn_ppm/tree/1ddb83d72c601126fc29e6da9a252608e630840e" target="_blank">1ddb83d</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -490,17 +490,7 @@ Ignored files:
     Ignored:    data/.DS_Store
     Ignored:    data/data_raw/
 
-Untracked files:
-    Untracked:  analysis/features_plots.Rmd
-    Untracked:  analysis/findPlots.Rmd
-    Untracked:  glmulti.analysis.modgen.back
-    Untracked:  glmulti.analysis.mods.back
-
 Unstaged changes:
-    Modified:   analysis/computeMannKendall.Rmd
-    Modified:   analysis/dataNAO-SierraNevada.Rmd
-    Modified:   analysis/evolucionTemporal.Rmd
-    Modified:   data/coplas2019sn.csv
     Modified:   output/patron_nao_ppm_sn.pdf
     Modified:   output/pearson_NAO_especies_sn.pdf
 
@@ -541,6 +531,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/ajpelu/booksn_ppm/blob/dcf98732a4a65c413f190556c0b53f2961f853de/analysis/computeMannKendall.Rmd" target="_blank">dcf9873</a>
+</td>
+<td>
+Antonio J Perez-Luque
+</td>
+<td>
+2021-07-15
+</td>
+<td>
+update changes
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/ajpelu/booksn_ppm/dcf98732a4a65c413f190556c0b53f2961f853de/docs/computeMannKendall.html" target="_blank">dcf9873</a>
+</td>
+<td>
+Antonio J Perez-Luque
+</td>
+<td>
+2021-07-15
+</td>
+<td>
+update changes
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -785,6 +809,43 @@ mkdf$especie &lt;- fct_relevel(mkdf$especie,
   ggplot2::scale_y_continuous(limits=c(-1,1)) +
   ggplot2::scale_color_manual(values = colores_pinos)</code></pre>
 <p><img src="figure/computeMannKendall.Rmd/unnamed-chunk-9-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/ajpelu/booksn_ppm/blob/dcf98732a4a65c413f190556c0b53f2961f853de/docs/figure/computeMannKendall.Rmd/unnamed-chunk-9-1.png" target="_blank">dcf9873</a>
+</td>
+<td>
+Antonio J Perez-Luque
+</td>
+<td>
+2021-07-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>null device 
           1 </code></pre>
 <ul>
@@ -796,7 +857,7 @@ mkdf$especie &lt;- fct_relevel(mkdf$especie,
   mutate(pct_tot = round(n/sum(n)*100,2)) 
 
 pct_sig %&gt;% flextable() %&gt;% autofit()</code></pre>
-<template id="8a7ad92b-43c2-4d75-b3ab-e7a9cd93d865"><style>
+<template id="9d01420e-47d9-494f-beb2-ac8db3fa6dd1"><style>
 .tabwid table{
   border-collapse:collapse;
   line-height:1;
@@ -830,11 +891,11 @@ pct_sig %&gt;% flextable() %&gt;% autofit()</code></pre>
 .tabwid table tr {
 background-color: transparent;
 }
-</style><div class="tabwid"><style>.cl-da4620ea{border-collapse:collapse;}.cl-da3f954a{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-da3fb976{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-da3fb9a8{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-da400610{width:69.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-da40062e{width:86.6pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-da400642{width:38.9pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-da40064c{width:53.6pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-da400656{width:69.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-da400660{width:86.6pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-da400674{width:53.6pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-da40067e{width:38.9pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-da400688{width:86.6pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-da400692{width:69.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-da40069c{width:38.9pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-da4006a6{width:53.6pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}caption {color: #777;margin-top: 10px;margin-bottom: 10px;text-align: center;}</style><table class='cl-da4620ea'><thead><tr style="overflow-wrap:break-word;"><td class="cl-da400688"><p class="cl-da3fb976"><span class="cl-da3f954a">especie</span></p></td><td class="cl-da400692"><p class="cl-da3fb976"><span class="cl-da3f954a">significant</span></p></td><td class="cl-da40069c"><p class="cl-da3fb9a8"><span class="cl-da3f954a">n</span></p></td><td class="cl-da4006a6"><p class="cl-da3fb9a8"><span class="cl-da3f954a">pct_tot</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-da40062e"><p class="cl-da3fb976"><span class="cl-da3f954a">P. halepensis</span></p></td><td class="cl-da400610"><p class="cl-da3fb976"><span class="cl-da3f954a">nosig</span></p></td><td class="cl-da400642"><p class="cl-da3fb9a8"><span class="cl-da3f954a">271</span></p></td><td class="cl-da40064c"><p class="cl-da3fb9a8"><span class="cl-da3f954a">80.90</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-da40062e"><p class="cl-da3fb976"><span class="cl-da3f954a">P. halepensis</span></p></td><td class="cl-da400610"><p class="cl-da3fb976"><span class="cl-da3f954a">sig</span></p></td><td class="cl-da400642"><p class="cl-da3fb9a8"><span class="cl-da3f954a">64</span></p></td><td class="cl-da40064c"><p class="cl-da3fb9a8"><span class="cl-da3f954a">19.10</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-da40062e"><p class="cl-da3fb976"><span class="cl-da3f954a">P. pinaster</span></p></td><td class="cl-da400610"><p class="cl-da3fb976"><span class="cl-da3f954a">nosig</span></p></td><td class="cl-da400642"><p class="cl-da3fb9a8"><span class="cl-da3f954a">137</span></p></td><td class="cl-da40064c"><p class="cl-da3fb9a8"><span class="cl-da3f954a">85.62</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-da40062e"><p class="cl-da3fb976"><span class="cl-da3f954a">P. pinaster</span></p></td><td class="cl-da400610"><p class="cl-da3fb976"><span class="cl-da3f954a">sig</span></p></td><td class="cl-da400642"><p class="cl-da3fb9a8"><span class="cl-da3f954a">23</span></p></td><td class="cl-da40064c"><p class="cl-da3fb9a8"><span class="cl-da3f954a">14.37</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-da40062e"><p class="cl-da3fb976"><span class="cl-da3f954a">P. nigra</span></p></td><td class="cl-da400610"><p class="cl-da3fb976"><span class="cl-da3f954a">nosig</span></p></td><td class="cl-da400642"><p class="cl-da3fb9a8"><span class="cl-da3f954a">173</span></p></td><td class="cl-da40064c"><p class="cl-da3fb9a8"><span class="cl-da3f954a">82.78</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-da40062e"><p class="cl-da3fb976"><span class="cl-da3f954a">P. nigra</span></p></td><td class="cl-da400610"><p class="cl-da3fb976"><span class="cl-da3f954a">sig</span></p></td><td class="cl-da400642"><p class="cl-da3fb9a8"><span class="cl-da3f954a">36</span></p></td><td class="cl-da40064c"><p class="cl-da3fb9a8"><span class="cl-da3f954a">17.22</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-da40062e"><p class="cl-da3fb976"><span class="cl-da3f954a">P. sylvestris</span></p></td><td class="cl-da400610"><p class="cl-da3fb976"><span class="cl-da3f954a">nosig</span></p></td><td class="cl-da400642"><p class="cl-da3fb9a8"><span class="cl-da3f954a">230</span></p></td><td class="cl-da40064c"><p class="cl-da3fb9a8"><span class="cl-da3f954a">80.70</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-da400660"><p class="cl-da3fb976"><span class="cl-da3f954a">P. sylvestris</span></p></td><td class="cl-da400656"><p class="cl-da3fb976"><span class="cl-da3f954a">sig</span></p></td><td class="cl-da40067e"><p class="cl-da3fb9a8"><span class="cl-da3f954a">55</span></p></td><td class="cl-da400674"><p class="cl-da3fb9a8"><span class="cl-da3f954a">19.30</span></p></td></tr></tbody></table></div></template>
-<div id="c3fbfa11-bb9b-4107-9a7d-38d78ac5126f"></div>
+</style><div class="tabwid"><style>.cl-b9b05294{border-collapse:collapse;}.cl-b9a9b56a{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b9a9cfa0{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-b9a9cfbe{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-b9aa0b96{width:69.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b9aa0bb4{width:86.6pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b9aa0bb5{width:38.9pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b9aa0bbe{width:53.6pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b9aa0bc8{width:69.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b9aa0bd2{width:86.6pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b9aa0bdc{width:53.6pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b9aa0be6{width:38.9pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b9aa0bf0{width:86.6pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b9aa0bfa{width:69.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b9aa0c04{width:38.9pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b9aa0c0e{width:53.6pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}caption {color: #777;margin-top: 10px;margin-bottom: 10px;text-align: center;}</style><table class='cl-b9b05294'><thead><tr style="overflow-wrap:break-word;"><td class="cl-b9aa0bf0"><p class="cl-b9a9cfa0"><span class="cl-b9a9b56a">especie</span></p></td><td class="cl-b9aa0bfa"><p class="cl-b9a9cfa0"><span class="cl-b9a9b56a">significant</span></p></td><td class="cl-b9aa0c04"><p class="cl-b9a9cfbe"><span class="cl-b9a9b56a">n</span></p></td><td class="cl-b9aa0c0e"><p class="cl-b9a9cfbe"><span class="cl-b9a9b56a">pct_tot</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-b9aa0bb4"><p class="cl-b9a9cfa0"><span class="cl-b9a9b56a">P. halepensis</span></p></td><td class="cl-b9aa0b96"><p class="cl-b9a9cfa0"><span class="cl-b9a9b56a">nosig</span></p></td><td class="cl-b9aa0bb5"><p class="cl-b9a9cfbe"><span class="cl-b9a9b56a">271</span></p></td><td class="cl-b9aa0bbe"><p class="cl-b9a9cfbe"><span class="cl-b9a9b56a">80.90</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b9aa0bb4"><p class="cl-b9a9cfa0"><span class="cl-b9a9b56a">P. halepensis</span></p></td><td class="cl-b9aa0b96"><p class="cl-b9a9cfa0"><span class="cl-b9a9b56a">sig</span></p></td><td class="cl-b9aa0bb5"><p class="cl-b9a9cfbe"><span class="cl-b9a9b56a">64</span></p></td><td class="cl-b9aa0bbe"><p class="cl-b9a9cfbe"><span class="cl-b9a9b56a">19.10</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b9aa0bb4"><p class="cl-b9a9cfa0"><span class="cl-b9a9b56a">P. pinaster</span></p></td><td class="cl-b9aa0b96"><p class="cl-b9a9cfa0"><span class="cl-b9a9b56a">nosig</span></p></td><td class="cl-b9aa0bb5"><p class="cl-b9a9cfbe"><span class="cl-b9a9b56a">137</span></p></td><td class="cl-b9aa0bbe"><p class="cl-b9a9cfbe"><span class="cl-b9a9b56a">85.62</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b9aa0bb4"><p class="cl-b9a9cfa0"><span class="cl-b9a9b56a">P. pinaster</span></p></td><td class="cl-b9aa0b96"><p class="cl-b9a9cfa0"><span class="cl-b9a9b56a">sig</span></p></td><td class="cl-b9aa0bb5"><p class="cl-b9a9cfbe"><span class="cl-b9a9b56a">23</span></p></td><td class="cl-b9aa0bbe"><p class="cl-b9a9cfbe"><span class="cl-b9a9b56a">14.37</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b9aa0bb4"><p class="cl-b9a9cfa0"><span class="cl-b9a9b56a">P. nigra</span></p></td><td class="cl-b9aa0b96"><p class="cl-b9a9cfa0"><span class="cl-b9a9b56a">nosig</span></p></td><td class="cl-b9aa0bb5"><p class="cl-b9a9cfbe"><span class="cl-b9a9b56a">173</span></p></td><td class="cl-b9aa0bbe"><p class="cl-b9a9cfbe"><span class="cl-b9a9b56a">82.78</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b9aa0bb4"><p class="cl-b9a9cfa0"><span class="cl-b9a9b56a">P. nigra</span></p></td><td class="cl-b9aa0b96"><p class="cl-b9a9cfa0"><span class="cl-b9a9b56a">sig</span></p></td><td class="cl-b9aa0bb5"><p class="cl-b9a9cfbe"><span class="cl-b9a9b56a">36</span></p></td><td class="cl-b9aa0bbe"><p class="cl-b9a9cfbe"><span class="cl-b9a9b56a">17.22</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b9aa0bb4"><p class="cl-b9a9cfa0"><span class="cl-b9a9b56a">P. sylvestris</span></p></td><td class="cl-b9aa0b96"><p class="cl-b9a9cfa0"><span class="cl-b9a9b56a">nosig</span></p></td><td class="cl-b9aa0bb5"><p class="cl-b9a9cfbe"><span class="cl-b9a9b56a">230</span></p></td><td class="cl-b9aa0bbe"><p class="cl-b9a9cfbe"><span class="cl-b9a9b56a">80.70</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b9aa0bd2"><p class="cl-b9a9cfa0"><span class="cl-b9a9b56a">P. sylvestris</span></p></td><td class="cl-b9aa0bc8"><p class="cl-b9a9cfa0"><span class="cl-b9a9b56a">sig</span></p></td><td class="cl-b9aa0be6"><p class="cl-b9a9cfbe"><span class="cl-b9a9b56a">55</span></p></td><td class="cl-b9aa0bdc"><p class="cl-b9a9cfbe"><span class="cl-b9a9b56a">19.30</span></p></td></tr></tbody></table></div></template>
+<div id="6a7919c4-52c8-4c56-873b-17261fdb7da9"></div>
 <script>
-var dest = document.getElementById("c3fbfa11-bb9b-4107-9a7d-38d78ac5126f");
-var template = document.getElementById("8a7ad92b-43c2-4d75-b3ab-e7a9cd93d865");
+var dest = document.getElementById("6a7919c4-52c8-4c56-873b-17261fdb7da9");
+var template = document.getElementById("9d01420e-47d9-494f-beb2-ac8db3fa6dd1");
 var caption = template.content.querySelector("caption");
 if(caption) {
   caption.style.cssText = "display:block;text-align:center;";
@@ -866,6 +927,43 @@ fantome.appendChild(templateContent);
        width = 6, height = 5)
 print(mksig_plot)</code></pre>
 <p><img src="figure/computeMannKendall.Rmd/unnamed-chunk-13-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/ajpelu/booksn_ppm/blob/dcf98732a4a65c413f190556c0b53f2961f853de/docs/figure/computeMannKendall.Rmd/unnamed-chunk-13-1.png" target="_blank">dcf9873</a>
+</td>
+<td>
+Antonio J Perez-Luque
+</td>
+<td>
+2021-07-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>dev.off()</code></pre>
 <pre><code>null device 
           1 </code></pre>
@@ -902,6 +1000,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/ajpelu/booksn_ppm/blob/dcf98732a4a65c413f190556c0b53f2961f853de/docs/figure/computeMannKendall.Rmd/unnamed-chunk-14-1.png" target="_blank">dcf9873</a>
+</td>
+<td>
+Antonio J Perez-Luque
+</td>
+<td>
+2021-07-15
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/ajpelu/booksn_ppm/blob/11251b2fe00cf33376e28784e506f8e8c50d8420/docs/figure/computeMannKendall.Rmd/unnamed-chunk-14-1.png" target="_blank">11251b2</a>
 </td>
 <td>
@@ -925,7 +1034,7 @@ Antonio J Perez-Luque
 model.tau &lt;- glm(mk_tau ~ elev_mean, data = mkdf, family = &quot;gaussian&quot;)
 
 model.tau %&gt;% as_flextable()</code></pre>
-<template id="aae5bcb9-e9a8-4d5c-8a83-2cddd6c93aec"><style>
+<template id="65c8a201-fb0f-4a28-8f11-349a311a3ca3"><style>
 .tabwid table{
   border-collapse:collapse;
   line-height:1;
@@ -959,11 +1068,11 @@ model.tau %&gt;% as_flextable()</code></pre>
 .tabwid table tr {
 background-color: transparent;
 }
-</style><div class="tabwid"><style>.cl-dfac75e8{border-collapse:collapse;}.cl-dfa64b6e{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-dfa64b82{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-dfa65b18{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-dfa65b2c{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-dfa68df4{width:92.7pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-dfa68e08{width:51.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-dfa68e12{width:55.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-dfa68e1c{width:63.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-dfa68e26{width:74.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-dfa68e30{width:56.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-dfa68e3a{width:92.7pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-dfa68e44{width:56.5pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-dfa68e4e{width:51.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-dfa68e58{width:55.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-dfa68e62{width:74.3pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-dfa68e63{width:63.3pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-dfa68e76{width:74.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-dfa68e80{width:55.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-dfa68e8a{width:63.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-dfa68e94{width:51.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-dfa68e95{width:92.7pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-dfa68e9e{width:56.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-dfa68ea8{width:63.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-dfa68eb2{width:56.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-dfa68ebc{width:55.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-dfa68ec6{width:92.7pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-dfa68ec7{width:74.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-dfa68ed0{width:51.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-dfa68eda{width:63.3pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-dfa68ee4{width:74.3pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-dfa68eee{width:55.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-dfa68ef8{width:51.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-dfa68f02{width:92.7pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-dfa68f03{width:56.5pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}caption {color: #777;margin-top: 10px;margin-bottom: 10px;text-align: center;}</style><table class='cl-dfac75e8'><thead><tr style="overflow-wrap:break-word;"><td class="cl-dfa68ee4"><p class="cl-dfa65b18"><span class="cl-dfa64b6e"></span></p></td><td class="cl-dfa68eda"><p class="cl-dfa65b2c"><span class="cl-dfa64b6e">Estimate</span></p></td><td class="cl-dfa68f02"><p class="cl-dfa65b2c"><span class="cl-dfa64b6e">Standard Error</span></p></td><td class="cl-dfa68eee"><p class="cl-dfa65b2c"><span class="cl-dfa64b6e">z value</span></p></td><td class="cl-dfa68f03"><p class="cl-dfa65b2c"><span class="cl-dfa64b6e">Pr(&gt;|z|)</span></p></td><td class="cl-dfa68ef8"><p class="cl-dfa65b18"><span class="cl-dfa64b6e">Signif.</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-dfa68e26"><p class="cl-dfa65b18"><span class="cl-dfa64b6e">(Intercept)</span></p></td><td class="cl-dfa68e1c"><p class="cl-dfa65b2c"><span class="cl-dfa64b6e">0.319</span></p></td><td class="cl-dfa68df4"><p class="cl-dfa65b2c"><span class="cl-dfa64b6e">0.033</span></p></td><td class="cl-dfa68e12"><p class="cl-dfa65b2c"><span class="cl-dfa64b6e">9.583</span></p></td><td class="cl-dfa68e30"><p class="cl-dfa65b2c"><span class="cl-dfa64b6e">0.0000</span></p></td><td class="cl-dfa68e08"><p class="cl-dfa65b18"><span class="cl-dfa64b6e">***</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-dfa68e62"><p class="cl-dfa65b18"><span class="cl-dfa64b6e">elev_mean</span></p></td><td class="cl-dfa68e63"><p class="cl-dfa65b2c"><span class="cl-dfa64b6e">-0.000</span></p></td><td class="cl-dfa68e3a"><p class="cl-dfa65b2c"><span class="cl-dfa64b6e">0.000</span></p></td><td class="cl-dfa68e58"><p class="cl-dfa65b2c"><span class="cl-dfa64b6e">-2.545</span></p></td><td class="cl-dfa68e44"><p class="cl-dfa65b2c"><span class="cl-dfa64b6e">0.0111</span></p></td><td class="cl-dfa68e4e"><p class="cl-dfa65b18"><span class="cl-dfa64b6e">*</span></p></td></tr></tbody><tfoot><tr style="overflow-wrap:break-word;"><td  colspan="6"class="cl-dfa68e76"><p class="cl-dfa65b2c"><span class="cl-dfa64b82">Signif. codes: 0 &lt;= '***' &lt; 0.001 &lt; '**' &lt; 0.01 &lt; '*' &lt; 0.05 &lt; '.' &lt; 0.1 &lt; '' &lt; 1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="6"class="cl-dfa68ec7"><p class="cl-dfa65b18"><span class="cl-dfa64b6e"> </span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="6"class="cl-dfa68ec7"><p class="cl-dfa65b18"><span class="cl-dfa64b6e">(Dispersion parameter for gaussian family taken to be 0.08951858)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="6"class="cl-dfa68ec7"><p class="cl-dfa65b18"><span class="cl-dfa64b6e">Null deviance: 88.93 on 988 degrees of freedom</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="6"class="cl-dfa68ec7"><p class="cl-dfa65b18"><span class="cl-dfa64b6e">Residual deviance: 88.35 on 987 degrees of freedom</span></p></td></tr></tfoot></table></div></template>
-<div id="62831dae-402b-4af0-9a64-7b87a021497d"></div>
+</style><div class="tabwid"><style>.cl-bef1a488{border-collapse:collapse;}.cl-beeb9de0{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-beeb9e08{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-beebab6e{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-beebab82{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-beebdd6e{width:92.7pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-beebdd82{width:51.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-beebdd8c{width:55.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-beebdd96{width:63.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-beebdda0{width:74.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-beebddaa{width:56.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-beebddab{width:92.7pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-beebddb4{width:56.5pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-beebddbe{width:51.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-beebddc8{width:55.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-beebddd2{width:74.3pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-beebdddc{width:63.3pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-beebdde6{width:74.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-beebddf0{width:55.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-beebddfa{width:63.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-beebde04{width:51.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-beebde0e{width:92.7pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-beebde0f{width:56.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-beebde18{width:63.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-beebde22{width:56.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-beebde23{width:55.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-beebde2c{width:92.7pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-beebde36{width:74.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-beebde40{width:51.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-beebde4a{width:63.3pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-beebde54{width:74.3pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-beebde5e{width:55.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-beebde68{width:51.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-beebde72{width:92.7pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-beebde7c{width:56.5pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}caption {color: #777;margin-top: 10px;margin-bottom: 10px;text-align: center;}</style><table class='cl-bef1a488'><thead><tr style="overflow-wrap:break-word;"><td class="cl-beebde54"><p class="cl-beebab6e"><span class="cl-beeb9de0"></span></p></td><td class="cl-beebde4a"><p class="cl-beebab82"><span class="cl-beeb9de0">Estimate</span></p></td><td class="cl-beebde72"><p class="cl-beebab82"><span class="cl-beeb9de0">Standard Error</span></p></td><td class="cl-beebde5e"><p class="cl-beebab82"><span class="cl-beeb9de0">z value</span></p></td><td class="cl-beebde7c"><p class="cl-beebab82"><span class="cl-beeb9de0">Pr(&gt;|z|)</span></p></td><td class="cl-beebde68"><p class="cl-beebab6e"><span class="cl-beeb9de0">Signif.</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-beebdda0"><p class="cl-beebab6e"><span class="cl-beeb9de0">(Intercept)</span></p></td><td class="cl-beebdd96"><p class="cl-beebab82"><span class="cl-beeb9de0">0.319</span></p></td><td class="cl-beebdd6e"><p class="cl-beebab82"><span class="cl-beeb9de0">0.033</span></p></td><td class="cl-beebdd8c"><p class="cl-beebab82"><span class="cl-beeb9de0">9.583</span></p></td><td class="cl-beebddaa"><p class="cl-beebab82"><span class="cl-beeb9de0">0.0000</span></p></td><td class="cl-beebdd82"><p class="cl-beebab6e"><span class="cl-beeb9de0">***</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-beebddd2"><p class="cl-beebab6e"><span class="cl-beeb9de0">elev_mean</span></p></td><td class="cl-beebdddc"><p class="cl-beebab82"><span class="cl-beeb9de0">-0.000</span></p></td><td class="cl-beebddab"><p class="cl-beebab82"><span class="cl-beeb9de0">0.000</span></p></td><td class="cl-beebddc8"><p class="cl-beebab82"><span class="cl-beeb9de0">-2.545</span></p></td><td class="cl-beebddb4"><p class="cl-beebab82"><span class="cl-beeb9de0">0.0111</span></p></td><td class="cl-beebddbe"><p class="cl-beebab6e"><span class="cl-beeb9de0">*</span></p></td></tr></tbody><tfoot><tr style="overflow-wrap:break-word;"><td  colspan="6"class="cl-beebdde6"><p class="cl-beebab82"><span class="cl-beeb9e08">Signif. codes: 0 &lt;= '***' &lt; 0.001 &lt; '**' &lt; 0.01 &lt; '*' &lt; 0.05 &lt; '.' &lt; 0.1 &lt; '' &lt; 1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="6"class="cl-beebde36"><p class="cl-beebab6e"><span class="cl-beeb9de0"> </span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="6"class="cl-beebde36"><p class="cl-beebab6e"><span class="cl-beeb9de0">(Dispersion parameter for gaussian family taken to be 0.08951858)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="6"class="cl-beebde36"><p class="cl-beebab6e"><span class="cl-beeb9de0">Null deviance: 88.93 on 988 degrees of freedom</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="6"class="cl-beebde36"><p class="cl-beebab6e"><span class="cl-beeb9de0">Residual deviance: 88.35 on 987 degrees of freedom</span></p></td></tr></tfoot></table></div></template>
+<div id="a68b0053-86a8-42c2-832e-dbfb5a8e9807"></div>
 <script>
-var dest = document.getElementById("62831dae-402b-4af0-9a64-7b87a021497d");
-var template = document.getElementById("aae5bcb9-e9a8-4d5c-8a83-2cddd6c93aec");
+var dest = document.getElementById("a68b0053-86a8-42c2-832e-dbfb5a8e9807");
+var template = document.getElementById("65c8a201-fb0f-4a28-8f11-349a311a3ca3");
 var caption = template.content.querySelector("caption");
 if(caption) {
   caption.style.cssText = "display:block;text-align:center;";
@@ -987,6 +1096,43 @@ tau_elev &lt;- visreg::visreg(model.tau, gg=TRUE,
        width = 9, height = 9, units = &quot;cm&quot;)
 print(tau_elev)</code></pre>
 <p><img src="figure/computeMannKendall.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-17-1">
+Past versions of unnamed-chunk-17-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-17-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/ajpelu/booksn_ppm/blob/dcf98732a4a65c413f190556c0b53f2961f853de/docs/figure/computeMannKendall.Rmd/unnamed-chunk-17-1.png" target="_blank">dcf9873</a>
+</td>
+<td>
+Antonio J Perez-Luque
+</td>
+<td>
+2021-07-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>dev.off()</code></pre>
 <pre><code>null device 
           1 </code></pre>
@@ -1020,6 +1166,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/ajpelu/booksn_ppm/blob/dcf98732a4a65c413f190556c0b53f2961f853de/docs/figure/computeMannKendall.Rmd/unnamed-chunk-18-1.png" target="_blank">dcf9873</a>
+</td>
+<td>
+Antonio J Perez-Luque
+</td>
+<td>
+2021-07-15
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/ajpelu/booksn_ppm/blob/11251b2fe00cf33376e28784e506f8e8c50d8420/docs/figure/computeMannKendall.Rmd/unnamed-chunk-18-1.png" target="_blank">11251b2</a>
 </td>
 <td>
@@ -1036,6 +1193,43 @@ Antonio J Perez-Luque
 <pre class="r"><code>s &lt;- simulateResiduals(fittedModel = model.tau)
 plot(s)</code></pre>
 <p><img src="figure/computeMannKendall.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-1">
+Past versions of unnamed-chunk-19-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-19-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/ajpelu/booksn_ppm/blob/dcf98732a4a65c413f190556c0b53f2961f853de/docs/figure/computeMannKendall.Rmd/unnamed-chunk-19-1.png" target="_blank">dcf9873</a>
+</td>
+<td>
+Antonio J Perez-Luque
+</td>
+<td>
+2021-07-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="modelo-de-tendencias-significativas-vs-elevación" class="section level2">
@@ -1047,7 +1241,7 @@ plot(s)</code></pre>
 <pre class="r"><code>tauspos &lt;- mkdf %&gt;% filter(mk_tau &gt;= 0)
 tp &lt;- glm(sig ~ elev_mean, data = tauspos, family=&quot;binomial&quot;)
 tp %&gt;% as_flextable()</code></pre>
-<template id="1d5b18a6-b62d-42a3-8700-226c0f93ba3c"><style>
+<template id="595bd588-137d-4ab3-bbbc-18b9d49378ce"><style>
 .tabwid table{
   border-collapse:collapse;
   line-height:1;
@@ -1081,11 +1275,11 @@ tp %&gt;% as_flextable()</code></pre>
 .tabwid table tr {
 background-color: transparent;
 }
-</style><div class="tabwid"><style>.cl-e1aef8fc{border-collapse:collapse;}.cl-e1a6501c{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-e1a65044{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-e1a66d90{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-e1a66dae{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-e1a6fd64{width:92.7pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1a6fd8c{width:51.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1a6fd96{width:55.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1a6fda0{width:63.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1a6fdb4{width:74.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1a6fdbe{width:56.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1a6fdc8{width:92.7pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1a6fddc{width:56.5pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1a6fde6{width:51.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1a6fdf0{width:55.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1a6fdfa{width:74.3pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1a6fe0e{width:63.3pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1a6fe18{width:74.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1a6fe22{width:55.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1a6fe2c{width:63.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1a6fe40{width:51.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1a6fe4a{width:92.7pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1a6fe54{width:56.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1a6fe5e{width:63.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1a6fe72{width:56.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1a6fe7c{width:55.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1a6fe90{width:92.7pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1a6fe9a{width:74.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1a6feae{width:51.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1a6feb8{width:63.3pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1a6fecc{width:74.3pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1a6fed6{width:55.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1a6fee0{width:51.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1a6fef4{width:92.7pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1a6fefe{width:56.5pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}caption {color: #777;margin-top: 10px;margin-bottom: 10px;text-align: center;}</style><table class='cl-e1aef8fc'><thead><tr style="overflow-wrap:break-word;"><td class="cl-e1a6fecc"><p class="cl-e1a66d90"><span class="cl-e1a6501c"></span></p></td><td class="cl-e1a6feb8"><p class="cl-e1a66dae"><span class="cl-e1a6501c">Estimate</span></p></td><td class="cl-e1a6fef4"><p class="cl-e1a66dae"><span class="cl-e1a6501c">Standard Error</span></p></td><td class="cl-e1a6fed6"><p class="cl-e1a66dae"><span class="cl-e1a6501c">z value</span></p></td><td class="cl-e1a6fefe"><p class="cl-e1a66dae"><span class="cl-e1a6501c">Pr(&gt;|z|)</span></p></td><td class="cl-e1a6fee0"><p class="cl-e1a66d90"><span class="cl-e1a6501c">Signif.</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-e1a6fdb4"><p class="cl-e1a66d90"><span class="cl-e1a6501c">(Intercept)</span></p></td><td class="cl-e1a6fda0"><p class="cl-e1a66dae"><span class="cl-e1a6501c">-0.889</span></p></td><td class="cl-e1a6fd64"><p class="cl-e1a66dae"><span class="cl-e1a6501c">0.295</span></p></td><td class="cl-e1a6fd96"><p class="cl-e1a66dae"><span class="cl-e1a6501c">-3.011</span></p></td><td class="cl-e1a6fdbe"><p class="cl-e1a66dae"><span class="cl-e1a6501c">0.0026</span></p></td><td class="cl-e1a6fd8c"><p class="cl-e1a66d90"><span class="cl-e1a6501c">**</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-e1a6fdfa"><p class="cl-e1a66d90"><span class="cl-e1a6501c">elev_mean</span></p></td><td class="cl-e1a6fe0e"><p class="cl-e1a66dae"><span class="cl-e1a6501c">-0.000</span></p></td><td class="cl-e1a6fdc8"><p class="cl-e1a66dae"><span class="cl-e1a6501c">0.000</span></p></td><td class="cl-e1a6fdf0"><p class="cl-e1a66dae"><span class="cl-e1a6501c">-1.411</span></p></td><td class="cl-e1a6fddc"><p class="cl-e1a66dae"><span class="cl-e1a6501c">0.1581</span></p></td><td class="cl-e1a6fde6"><p class="cl-e1a66d90"><span class="cl-e1a6501c"></span></p></td></tr></tbody><tfoot><tr style="overflow-wrap:break-word;"><td  colspan="6"class="cl-e1a6fe18"><p class="cl-e1a66dae"><span class="cl-e1a65044">Signif. codes: 0 &lt;= '***' &lt; 0.001 &lt; '**' &lt; 0.01 &lt; '*' &lt; 0.05 &lt; '.' &lt; 0.1 &lt; '' &lt; 1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="6"class="cl-e1a6fe9a"><p class="cl-e1a66d90"><span class="cl-e1a6501c"> </span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="6"class="cl-e1a6fe9a"><p class="cl-e1a66d90"><span class="cl-e1a6501c">(Dispersion parameter for binomial family taken to be 1)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="6"class="cl-e1a6fe9a"><p class="cl-e1a66d90"><span class="cl-e1a6501c">Null deviance: 826.8 on 792 degrees of freedom</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="6"class="cl-e1a6fe9a"><p class="cl-e1a66d90"><span class="cl-e1a6501c">Residual deviance: 824.8 on 791 degrees of freedom</span></p></td></tr></tfoot></table></div></template>
-<div id="94458eb7-e025-46f5-bcea-e6177192b9a8"></div>
+</style><div class="tabwid"><style>.cl-c104ba8a{border-collapse:collapse;}.cl-c0fbd3e8{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-c0fbd410{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-c0fbe40a{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-c0fbe428{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-c0fc3234{width:92.7pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0fc325c{width:51.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0fc3266{width:55.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0fc3270{width:63.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0fc327a{width:74.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0fc3284{width:56.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0fc328e{width:92.7pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0fc3298{width:56.5pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0fc32a2{width:51.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0fc32ac{width:55.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0fc32b6{width:74.3pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0fc32c0{width:63.3pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0fc32ca{width:74.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0fc32cb{width:55.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0fc32d4{width:63.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0fc32f2{width:51.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0fc32fc{width:92.7pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0fc3306{width:56.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0fc3310{width:63.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0fc331a{width:56.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0fc3324{width:55.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0fc3325{width:92.7pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0fc332e{width:74.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0fc3338{width:51.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0fc3342{width:63.3pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0fc334c{width:74.3pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0fc3356{width:55.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0fc3360{width:51.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0fc336a{width:92.7pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0fc36f8{width:56.5pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}caption {color: #777;margin-top: 10px;margin-bottom: 10px;text-align: center;}</style><table class='cl-c104ba8a'><thead><tr style="overflow-wrap:break-word;"><td class="cl-c0fc334c"><p class="cl-c0fbe40a"><span class="cl-c0fbd3e8"></span></p></td><td class="cl-c0fc3342"><p class="cl-c0fbe428"><span class="cl-c0fbd3e8">Estimate</span></p></td><td class="cl-c0fc336a"><p class="cl-c0fbe428"><span class="cl-c0fbd3e8">Standard Error</span></p></td><td class="cl-c0fc3356"><p class="cl-c0fbe428"><span class="cl-c0fbd3e8">z value</span></p></td><td class="cl-c0fc36f8"><p class="cl-c0fbe428"><span class="cl-c0fbd3e8">Pr(&gt;|z|)</span></p></td><td class="cl-c0fc3360"><p class="cl-c0fbe40a"><span class="cl-c0fbd3e8">Signif.</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-c0fc327a"><p class="cl-c0fbe40a"><span class="cl-c0fbd3e8">(Intercept)</span></p></td><td class="cl-c0fc3270"><p class="cl-c0fbe428"><span class="cl-c0fbd3e8">-0.889</span></p></td><td class="cl-c0fc3234"><p class="cl-c0fbe428"><span class="cl-c0fbd3e8">0.295</span></p></td><td class="cl-c0fc3266"><p class="cl-c0fbe428"><span class="cl-c0fbd3e8">-3.011</span></p></td><td class="cl-c0fc3284"><p class="cl-c0fbe428"><span class="cl-c0fbd3e8">0.0026</span></p></td><td class="cl-c0fc325c"><p class="cl-c0fbe40a"><span class="cl-c0fbd3e8">**</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c0fc32b6"><p class="cl-c0fbe40a"><span class="cl-c0fbd3e8">elev_mean</span></p></td><td class="cl-c0fc32c0"><p class="cl-c0fbe428"><span class="cl-c0fbd3e8">-0.000</span></p></td><td class="cl-c0fc328e"><p class="cl-c0fbe428"><span class="cl-c0fbd3e8">0.000</span></p></td><td class="cl-c0fc32ac"><p class="cl-c0fbe428"><span class="cl-c0fbd3e8">-1.411</span></p></td><td class="cl-c0fc3298"><p class="cl-c0fbe428"><span class="cl-c0fbd3e8">0.1581</span></p></td><td class="cl-c0fc32a2"><p class="cl-c0fbe40a"><span class="cl-c0fbd3e8"></span></p></td></tr></tbody><tfoot><tr style="overflow-wrap:break-word;"><td  colspan="6"class="cl-c0fc32ca"><p class="cl-c0fbe428"><span class="cl-c0fbd410">Signif. codes: 0 &lt;= '***' &lt; 0.001 &lt; '**' &lt; 0.01 &lt; '*' &lt; 0.05 &lt; '.' &lt; 0.1 &lt; '' &lt; 1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="6"class="cl-c0fc332e"><p class="cl-c0fbe40a"><span class="cl-c0fbd3e8"> </span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="6"class="cl-c0fc332e"><p class="cl-c0fbe40a"><span class="cl-c0fbd3e8">(Dispersion parameter for binomial family taken to be 1)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="6"class="cl-c0fc332e"><p class="cl-c0fbe40a"><span class="cl-c0fbd3e8">Null deviance: 826.8 on 792 degrees of freedom</span></p></td></tr><tr style="overflow-wrap:break-word;"><td  colspan="6"class="cl-c0fc332e"><p class="cl-c0fbe40a"><span class="cl-c0fbd3e8">Residual deviance: 824.8 on 791 degrees of freedom</span></p></td></tr></tfoot></table></div></template>
+<div id="67c1d344-d739-4033-baa0-4199f7ed62fd"></div>
 <script>
-var dest = document.getElementById("94458eb7-e025-46f5-bcea-e6177192b9a8");
-var template = document.getElementById("1d5b18a6-b62d-42a3-8700-226c0f93ba3c");
+var dest = document.getElementById("67c1d344-d739-4033-baa0-4199f7ed62fd");
+var template = document.getElementById("595bd588-137d-4ab3-bbbc-18b9d49378ce");
 var caption = template.content.querySelector("caption");
 if(caption) {
   caption.style.cssText = "display:block;text-align:center;";
@@ -1104,6 +1298,43 @@ fantome.appendChild(templateContent);
                scale = &quot;response&quot;, 
                ylim=c(0,1))</code></pre>
 <p><img src="figure/computeMannKendall.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-21-1">
+Past versions of unnamed-chunk-21-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-21-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/ajpelu/booksn_ppm/blob/dcf98732a4a65c413f190556c0b53f2961f853de/docs/figure/computeMannKendall.Rmd/unnamed-chunk-21-1.png" target="_blank">dcf9873</a>
+</td>
+<td>
+Antonio J Perez-Luque
+</td>
+<td>
+2021-07-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
