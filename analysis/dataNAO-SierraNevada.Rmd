@@ -147,11 +147,37 @@ pearson_plot <- df_plot %>%
          labeller = labeller(nao_index = toupper))
 ```
 
-
 ```{r, fig.width=8, fig.height=8, echo=FALSE}
 ggsave(filename = here::here("output/pearson_NAO_especies_sn.pdf"), 
        width =20, height = 20, units = "cm")
 print(pearson_plot)
+dev.off()
+```
+
+
+
+```{r}
+pearson_plotr2 <- df_plot %>% 
+  ggplot(aes(x=value, y=pct_high)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se=FALSE, size=.4, color="black") +
+  theme_bw() +
+  ylim(c(0,40)) + 
+  xlab("") + 
+  ylab("Percent of stands with defoliation >= 3") + 
+  theme(panel.grid = element_blank(),
+        strip.background = element_blank()) +
+  stat_cor(aes(label = paste(..rr.label.., ..p.label.., sep = "~`,`~")), color = "black", geom = "text") + facet_grid(fct_relevel(especie,"All", "P. pinea", 
+         "P. pinaster", "P. halepensis",
+         "P. nigra", "P. sylvestris")~nao_index, 
+         labeller = labeller(nao_index = toupper))
+```
+
+
+```{r, fig.width=8, fig.height=8, echo=FALSE}
+ggsave(filename = here::here("output/pearson_NAO_especies_sn.pdf"), 
+       width =20, height = 20, units = "cm")
+print(pearson_plotr2)
 dev.off()
 ```
 

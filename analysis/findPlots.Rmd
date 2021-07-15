@@ -1,0 +1,328 @@
+---
+title: "findPlots"
+author: "Antonio J Perez-Luque"
+date: "2021-05-31"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+- Buscar parcelas con una incidencia constante a lo largo del tiempo 
+- Categorizarlas en dos tipos: alta y baja infestación
+- Buscar pares de parcelas
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+```{r}
+library("tidyverse")
+library("here")
+library("DT")
+library("leaflet")
+library("DiagrammeR")
+library("sf")
+library("naniar")
+
+```
+
+```{r preparaDatos}
+coplas2019 <- read_csv(here::here("data/coplas2019.csv"))
+  
+dfraw <- coplas2019 %>% 
+  filter(!is.na(sp)) %>% 
+  dplyr::select(code, especie, `1993`:`2019`)
+
+dflonger <- dfraw %>% 
+  pivot_longer(`1993`:`2019`, names_to = "year", values_to = "infesta")
+```
+### Serie Completa  
+- ¿Cuantas parcelas hay que tengan toda la serie temporal y tengan nivel de infestación bajo (<= 2)? 
+- ¿Cuantas parcelas hay que tengan toda la serie temporal y tengan nivel de infestación alto (>= 3) en toda Andalucía? 
+
+
+
+```{r serieCompleta}
+dfcomplete <- dfraw %>% filter(complete.cases(.))
+
+dfcomplete_longer <- dfcomplete %>% 
+  pivot_longer(`1993`:`2019`, names_to = "year", values_to = "infesta")
+
+dfcomplete_low2 <- dfcomplete_longer %>% 
+  filter(infesta <= 2) %>% 
+  pivot_wider(names_from = year, values_from = infesta) %>% 
+  filter(complete.cases(.))
+
+dfcomplete_hig3_full <- dfcomplete_longer %>% 
+  filter(infesta >= 3) %>% 
+  pivot_wider(names_from = year, values_from = infesta) %>% 
+  filter(complete.cases(.))
+```
+
+```{r serieCompletaFlow, echo=FALSE}
+mermaid("
+graph TD
+  A[<center><strong>Plots SN</strong><br>n=4173</center>]-->|serie temporal completa|B[<center>n=289</center>] 
+  B-->C{Infestación}
+  C-->|<= 2 todos los años |D[<center>n=76</center>]
+  C-->|>= 3 & todos los años |E[<center>n=0</center>]")
+```
+
+### Serie no completa 
+
+```{r}
+dflonger <- dfraw %>% 
+  pivot_longer(`1993`:`2019`, names_to = "year", values_to = "infesta")
+
+df_low1 <- dflonger %>% 
+  filter(infesta <= 1) %>% 
+  pivot_wider(names_from = year, values_from = infesta) %>% 
+  mutate(count_na = rowSums(is.na(.)), 
+         per_data = 100-round((count_na/27)*100, 2))
+
+dfh1_100 <-df_low1 %>% filter(complete.cases(.)) 
+dfh1_90 <-df_low1 %>% filter(per_data >= 90) 
+dfh1_80 <- df_low1 %>% filter(per_data >= 80)
+
+
+df_low2 <- dflonger %>% 
+  filter(infesta <= 2) %>% 
+  pivot_wider(names_from = year, values_from = infesta) %>% 
+  mutate(count_na = rowSums(is.na(.)), 
+         per_data = 100-round((count_na/27)*100, 2))
+
+df_low2 %>% filter(complete.cases(.)) %>% nrow()
+df_low2 %>% filter(per_data >= 90) %>% nrow()
+df_low2 %>% filter(per_data >= 80) %>% nrow()
+  
+df_high3 <- dflonger %>% 
+  filter(infesta >= 3) %>% 
+  pivot_wider(names_from = year, values_from = infesta) %>% 
+  mutate(count_na = rowSums(is.na(.)), 
+         per_data = 100-round((count_na/27)*100, 2))
+
+df_high3 %>% filter(complete.cases(.)) %>% nrow()
+df_high3 %>% filter(per_data >= 60) %>% nrow()
+df_high3 %>% filter(per_data >= 50) %>% nrow()
+dfh3_40 <- df_high3 %>% filter(per_data >= 40) 
+```
+
+
+```{r serieFlow, echo=FALSE}
+mermaid("
+graph TD
+  A[<center><strong>Plots Andalucia</strong><br>n=4173</center>]-->B{Infestación}
+
+  B-->|<= 1|C{años}
+  C-->|100%|F[<center>n=28</center>]
+  C-->|Datos > 90 % años|G[<center>n=529</center>]
+  C-->|Datos > 80 % años|H[<center>n=1358</center>]
+
+  B-->|<= 2|D{años}
+  D-->|100%|I[<center>n=76</center>]
+  D-->|Datos > 90 % años|J[<center>n=1184</center>]
+  D-->|Datos > 80 % años|K[<center>n=2341</center>]
+
+  B-->|>= 3|E{años}
+  E-->|100%|L[<center>n=0</center>]
+  E-->|Datos > 60 % años|M[<center>n=1</center>]
+  E-->|Datos > 50 % años|N[<center>n=7</center>]
+  E-->|Datos > 40 % años|O[<center>n=43</center>]")
+```
+
+
+
+```{r}
+sn <- st_read("data/data_raw/geoinfo/sn_enp.shp") 
+
+load(here::here("data/data_raw/mapa_rodales.RData"))
+rodales <- st_as_sf(mapa.rodales) %>% 
+  st_transform(crs = st_crs(sn)) %>% 
+  st_make_valid()
+
+rodal2019 <- st_read(here::here("data/data_raw/geoinfo/coberturas_procesionaria/COB270616_ETRS89.shp")) %>% 
+  st_transform(crs = st_crs(sn)) %>% 
+   st_make_valid()
+```
+
+```{r}
+rodal2019h3_40 <- as_Spatial(subset(rodal2019, N_CODIGO %in% c(dfh3_40$code)) %>% st_transform(crs=4326))
+
+
+
+dfh1_100sp <- as_Spatial(subset(rodal2019, N_CODIGO %in% c(dfh1_100$code)) %>% st_transform(crs=4326))
+
+dfh1_90sp <- as_Spatial(subset(rodal2019, N_CODIGO %in% c(dfh1_90$code)) %>% st_transform(crs=4326))
+
+dfh1_80sp <- as_Spatial(subset(rodal2019, N_CODIGO %in% c(dfh1_80$code)) %>% st_transform(crs=4326))
+
+
+```
+
+
+```{r baseMap}
+leaflet() %>%
+   addTiles(urlTemplate = "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
+           attribution = '<a href="https://carto.com/attributions">CARTO</a>',
+           group = 'Basemap') %>% 
+  addWMSTiles('http://www.ideandalucia.es/wms/mta10r_2001-2013?',
+              layers = 'mta10r_2001-2013',
+              options = WMSTileOptions(format = "image/png", transparent = FALSE),
+              attribution = '<a href="http://www.juntadeandalucia.es/institutodeestadisticaycartografia" target="_blank">Instituto de Estadística y Cartografía de Andalucía</a>',
+              group = 'topo2013') %>% 
+  addProviderTiles("Esri.WorldImagery", group='Satellite') %>%
+  # Layers control
+  addLayersControl(position = 'bottomright',
+                   baseGroups = c(
+                                  "Basemap", "Satellite",  "topo2013", "topo2007"),
+                   overlayGroups = c('infesta >3 (40%)',
+                                     'infesta <1 (100%)',
+                                     'infesta <=1 (90%)',
+                                     'infesta <=1 (80%)'),
+                   options = layersControlOptions(collapsed = TRUE)) %>%
+      addPolygons(data = rodal2019h3_40,
+                group= 'infesta >3 (40%)', fill='red', opacity = 0.8,
+                stroke = TRUE, color = "red") %>%
+        addPolygons(data = dfh1_100sp,
+                group= 'infesta <=1 (100%)', fill='green', opacity = 0.8,
+                stroke = TRUE) %>% 
+          addPolygons(data = dfh1_90sp,
+                group= 'infesta <=1 (90%)', fill='green', opacity = 0.8,
+                stroke = TRUE, color = "green") %>%
+          addPolygons(data = dfh1_90sp,
+                group= 'infesta <=1 (80%)', fill='green', opacity = .8,
+                stroke = TRUE, color = "green", popup = c("code", dfh1_90sp$N_CODIGO)) 
+  
+
+
+
+```
+
+
+
+
+
+```{r}
+
+
+
+# function para plotear 
+plotInfesta <- function(d, ...){
+  ggplot(d, aes(x=year, y=infesta)) + 
+  naniar::geom_miss_point(size = 1.5, color = "black") +
+  scale_y_continuous(limits = c(0,5)) +
+  theme_bw() + 
+  ylab("Infestacion") + xlab("")+ 
+  theme(
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_blank(), 
+    axis.text.x = element_text(angle=90, vjust = .5)
+  ) + 
+    geom_line(stat ="identity", aes(group=1))
+}
+
+
+
+dflonger %>% filter(code == "GR000016") %>% plotInfesta()
+
+
+
+
+
+
+
+%>% plotInfesta() + 
+  ggplot2::geom_arrow(
+    dflonger)
+
+  
+
+
+
+
+```
+
+
+
+
+
+dfcomplete_hig3 <- dfcomplete_longer %>% 
+  filter(infesta >= 3) %>% 
+  pivot_wider(names_from = year, values_from = infesta) %>% 
+  mutate(count_na = rowSums(is.na(.)))
+
+
+
+
+```
+
+
+
+
+
+```{r}
+dflonger <- dfraw  %>% 
+  pivot_longer(`1993`:`2019`, names_to = "year", values_to = "infesta")
+
+df_low2 <- dflonger %>% 
+  filter(infesta <= 2) %>% 
+  pivot_wider(names_from = year, values_from = infesta) %>% 
+  filter(complete.cases(.))
+
+df_hig3_full <- dflonger %>% 
+  filter(infesta >= 3) %>% 
+  pivot_wider(names_from = year, values_from = infesta) %>% 
+  filter(complete.cases(.))
+
+df_hig3 <- dflonger %>% 
+  filter(infesta >= 3) %>% 
+  pivot_wider(names_from = year, values_from = infesta) %>% 
+  mutate(count_na = rowSums(is.na(.)))
+
+
+```
+
+
+
+
+
+
+
+
+
+- Parcelas siempre con infestación menor 2 
+
+```{r}
+#lower than 2 
+
+dflow2 <- dflonger %>% 
+  filter(infesta < 2) 
+
+dflow2_w <- dflow2 %>% pivot_wider(names_from = year, values_from = infesta)
+  
+
+  
+  
+
+%>% 
+  mutate(type = case_when(
+    infesta >= 3 ~ "high",
+    TRUE ~ "low" 
+  )) %>% 
+  mutate(year = as.numeric(year))
+```
+
+
+
+```{r}
+%>% 
+  mutate(type = case_when(
+    infesta >= 3 ~ "high",
+    TRUE ~ "low" 
+  )) %>% 
+  mutate(year = as.numeric(year))
+```
+

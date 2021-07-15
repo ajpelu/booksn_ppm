@@ -1,0 +1,35 @@
+---
+title: "features_plots"
+author: "Antonio J Perez-Luque"
+date: "2021-07-14"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+```{r}
+library("tidyverse")
+library("here")
+library("flextable")
+library("DT")
+library("broom")
+library("mapview")
+```
+
+
+```{r}
+coplas2019 <- read_csv(here::here("data/coplas2019sn.csv"))
+```
+
+
+
+
+
+

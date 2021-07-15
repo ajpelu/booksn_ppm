@@ -53,14 +53,14 @@ for (i in 1:length(parcelas)) {
   #MK 
   mk <- Kendall::MannKendall(aux$infestacion)
   
- #auxNA <- aux$infestacion[!is.na(aux$infestacion)]
- #sen <- trend::sens.slope(auxNA)
+  auxNA <- aux$infestacion[!is.na(aux$infestacion)]
+ sen <- trend::sens.slope(auxNA)
   
   out <- data.frame(code = parcelas[i], 
                     mk_tau = mk$tau,
-                    mk_pvalue = mk$sl)
-                    #sen = sen$estimates,
-                    #sen_pvalue = sen$p.value)
+                    mk_pvalue = mk$sl,
+                    sen = sen$estimates,
+                    sen_pvalue = sen$p.value)
   
   df_trend <- rbind(df_trend, out)
 }
@@ -86,6 +86,27 @@ mkdf$especie <- fct_relevel(mkdf$especie,
          "P. halepensis", "P. pinaster",
          "P. nigra", "P. sylvestris")
 ```
+
+- ¿cuantas parcelas tienen tendencia positiva?
+
+```{r}
+mkdf %>% filter(mk_tau > 0) %>% count()
+```
+que representan un: 
+```{r}
+(mkdf %>% filter(mk_tau > 0) %>% count() / mkdf %>% count())*100
+```
+
+- Evaluación de las tendencias positivas
+
+```{r}
+mkdf %>% 
+  filter(mk_tau > 0) %>% 
+  filter(significant == "sig") %>% 
+  summarize(mean_sen = mean(mk_tau))
+```
+
+
 
 - Comparación de las tendencias por especie 
 ```{r, echo=FALSE}

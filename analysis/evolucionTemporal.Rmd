@@ -101,6 +101,10 @@ DT::datatable(coplas2019 %>% group_by(sp_abrev) %>% count())
 ```{r}
 dfspraw <- coplas2019 %>% filter(especie %in% c("P. nigra", "P. halepensis", "P. sylvestris","P. pinaster")) 
 
+dfspraw %>% summarise(sum(area_ha, na.rm = TRUE))
+
+dfspraw %>% group_by(prov) %>% count()
+
 dfsp <- dfspraw %>% 
   dplyr::select(code, especie, elev_mean, `1993`:`2019`) %>% 
   pivot_longer(names_to = "year", values_to = "infestacion", `1993`:`2019`) 
